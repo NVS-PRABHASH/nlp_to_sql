@@ -1,0 +1,605 @@
+2025-11-05 10:08:01,900 | WARNING | ai_insight.api | SSL cert/key not found or not absolute; starting without TLS. Set server.ssl_certfile and server.ssl_keyfile to absolute paths.
+2025-11-05 10:08:02,015 | INFO | uvicorn.error | Started server process [8220]
+2025-11-05 10:08:02,015 | INFO | uvicorn.error | Waiting for application startup.
+2025-11-05 10:08:02,016 | INFO | uvicorn.error | Application startup complete.
+2025-11-05 10:08:02,016 | INFO | uvicorn.error | Uvicorn running on http://0.0.0.0:5005 (Press CTRL+C to quit)
+2025-11-05 10:15:08,475 | ERROR | ai_insight.api | Database connection error: [{'type': 'missing', 'loc': ('body', 'user_id'), 'msg': 'Field required', 'input': {'query': 'Branch wise NFI'}}]
+2025-11-05 10:15:08,476 | INFO | uvicorn.access | 10.16.1.57:52654 - "POST /api/sql HTTP/1.1" 500
+2025-11-05 10:15:08,477 | ERROR | uvicorn.error | Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\prabh\OneDrive\Desktop\ai_insight\ai_insight_v3\Scripts\api_server.py", line 71, in get_db
+    yield engine
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\routing.py", line 109, in app
+    response = await f(request)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\routing.py", line 430, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: [{'type': 'missing', 'loc': ('body', 'user_id'), 'msg': 'Field required', 'input': {'query': 'Branch wise NFI'}}]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\applications.py", line 1133, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\middleware\cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\routing.py", line 123, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\routing.py", line 106, in app
+    async with AsyncExitStack() as stack:
+  File "C:\Users\prabh\.conda\envs\rag\lib\contextlib.py", line 714, in __aexit__
+    raise exc_details[1]
+  File "C:\Users\prabh\.conda\envs\rag\lib\contextlib.py", line 697, in __aexit__
+    cb_suppress = await cb(*exc_details)
+  File "C:\Users\prabh\.conda\envs\rag\lib\contextlib.py", line 249, in __aexit__
+    raise RuntimeError("generator didn't stop after athrow()")
+RuntimeError: generator didn't stop after athrow()
+2025-11-05 10:15:12,303 | ERROR | ai_insight.api | Database connection error: [{'type': 'missing', 'loc': ('body', 'user_id'), 'msg': 'Field required', 'input': {'query': 'Branch wise NFI'}}]
+2025-11-05 10:15:12,303 | INFO | uvicorn.access | 10.16.1.57:52657 - "POST /api/sql HTTP/1.1" 500
+2025-11-05 10:15:12,304 | ERROR | uvicorn.error | Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\prabh\OneDrive\Desktop\ai_insight\ai_insight_v3\Scripts\api_server.py", line 71, in get_db
+    yield engine
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\routing.py", line 109, in app
+    response = await f(request)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\routing.py", line 430, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: [{'type': 'missing', 'loc': ('body', 'user_id'), 'msg': 'Field required', 'input': {'query': 'Branch wise NFI'}}]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\applications.py", line 1133, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\middleware\cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\routing.py", line 123, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\routing.py", line 106, in app
+    async with AsyncExitStack() as stack:
+  File "C:\Users\prabh\.conda\envs\rag\lib\contextlib.py", line 714, in __aexit__
+    raise exc_details[1]
+  File "C:\Users\prabh\.conda\envs\rag\lib\contextlib.py", line 697, in __aexit__
+    cb_suppress = await cb(*exc_details)
+  File "C:\Users\prabh\.conda\envs\rag\lib\contextlib.py", line 249, in __aexit__
+    raise RuntimeError("generator didn't stop after athrow()")
+RuntimeError: generator didn't stop after athrow()
+2025-11-05 10:16:25,121 | ERROR | ai_insight.api | Database connection error: [{'type': 'missing', 'loc': ('body', 'user_id'), 'msg': 'Field required', 'input': {'query': 'Branch wise NFI'}}]
+2025-11-05 10:16:25,122 | INFO | uvicorn.access | 10.16.1.57:60886 - "POST /api/sql?user_id=1 HTTP/1.1" 500
+2025-11-05 10:16:25,122 | ERROR | uvicorn.error | Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\prabh\OneDrive\Desktop\ai_insight\ai_insight_v3\Scripts\api_server.py", line 71, in get_db
+    yield engine
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\routing.py", line 109, in app
+    response = await f(request)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\routing.py", line 430, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: [{'type': 'missing', 'loc': ('body', 'user_id'), 'msg': 'Field required', 'input': {'query': 'Branch wise NFI'}}]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\applications.py", line 1133, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\middleware\cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\routing.py", line 123, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\routing.py", line 106, in app
+    async with AsyncExitStack() as stack:
+  File "C:\Users\prabh\.conda\envs\rag\lib\contextlib.py", line 714, in __aexit__
+    raise exc_details[1]
+  File "C:\Users\prabh\.conda\envs\rag\lib\contextlib.py", line 697, in __aexit__
+    cb_suppress = await cb(*exc_details)
+  File "C:\Users\prabh\.conda\envs\rag\lib\contextlib.py", line 249, in __aexit__
+    raise RuntimeError("generator didn't stop after athrow()")
+RuntimeError: generator didn't stop after athrow()
+2025-11-05 10:16:43,597 | INFO | uvicorn.error | Shutting down
+2025-11-05 10:16:43,706 | INFO | uvicorn.error | Waiting for application shutdown.
+2025-11-05 10:16:43,709 | INFO | uvicorn.error | Application shutdown complete.
+2025-11-05 10:16:43,710 | INFO | uvicorn.error | Finished server process [8220]
+2025-11-05 10:16:54,739 | WARNING | ai_insight.api | SSL cert/key not found or not absolute; starting without TLS. Set server.ssl_certfile and server.ssl_keyfile to absolute paths.
+2025-11-05 10:16:54,784 | INFO | uvicorn.error | Started server process [19188]
+2025-11-05 10:16:54,785 | INFO | uvicorn.error | Waiting for application startup.
+2025-11-05 10:16:54,785 | INFO | uvicorn.error | Application startup complete.
+2025-11-05 10:16:54,786 | INFO | uvicorn.error | Uvicorn running on http://0.0.0.0:5005 (Press CTRL+C to quit)
+2025-11-05 10:17:04,133 | INFO | ai_insight.dynamic_prompt_builder | Vector retrieval system initialized
+2025-11-05 10:17:04,138 | INFO | ai_insight.dynamic_prompt_builder | System prompt loaded from JSON template
+2025-11-05 10:17:04,139 | WARNING | ai_insight.dynamic_prompt_builder | No footer_prompt found in template file
+2025-11-05 10:17:04,139 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 10:17:04,139 | INFO | ai_insight.sql_generator | 🔍 Processing query: Branch wise NFI
+2025-11-05 10:17:04,139 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 10:17:05,705 | INFO | ai_insight.mrl_api | Processing query with LLM...
+2025-11-05 10:17:07,346 | INFO | ai_insight.mrl_api | Hierarchy fetched by LLM
+2025-11-05 10:17:07,347 | INFO | ai_insight.mrl_api | {'non_funded_income': {'level_1': ['Income'], 'level_2': ['Non Funded Income']}}
+2025-11-05 10:17:07,395 | INFO | ai_insight.mrl_api | Retrieved rows by product: {'non_funded_income': 93}
+2025-11-05 10:17:07,395 | INFO | ai_insight.dynamic_prompt_builder | Building dynamic prompt...
+2025-11-05 10:17:11,944 | INFO | ai_insight.sql_generator | SQL generated by LLM
+2025-11-05 10:17:11,944 | INFO | ai_insight.sql_generator | SQL generated: SELECT 
+    OUC_DESCRIPTION AS branch_description,
+    VISION_OUC,
+    ROUND(SUM(BUSINESS_DAY), 2) AS nfi
+FROM 
+    DM_MIS_DETAILS_VW1
+WHERE 
+    MRL_LINE IN ('M523120','M523130','M523140','M523150','M523160','M523170','M523180','M523200','M523220','M523230','M523250','M523260','M523272','M523290','M523310','M523320','M523340','M523360','M523380','M523390','M523401','M523420','M523440','M523450','M523470','M523490','M523510','M523520','M523530','M523990','M531010','M531020','M531030','M531040','M531060','M531080','M531090','M531110','M531130','M531140','M531310','M531330','M531340','M531360','M521020','M521030','M521050','M521070','M521080','M521100','M521110','M521130','M521150','M521990','M523010','M523030','M523050','M523060','M523080','M523100','M523110','M523190','M523210','M523240','M523270','M523280','M523300','M523330','M523350','M523370','M523400','M523410','M523430','M523460','M523480','M523500','M531050','M531070','M531100','M531120','M531150','M531320','M531350','M521010','M521040','M521060','M521090','M521120','M521170','M523020','M523040','M523070','M523090')
+    AND BAL_TYPE = 3
+    AND CCY_TYPE = 'BCY'
+GROUP BY 
+    OUC_DESCRIPTION, VISION_OUC
+2025-11-05 10:17:12,311 | INFO | ai_insight.qdrant_service | Creating NEW Qdrant client with storage: C:\Users\prabh\OneDrive\Desktop\ai_insight\ai_insight_v3\qdrant_data
+2025-11-05 10:17:12,400 | INFO | ai_insight.qdrant_service | Loading embedding model: sentence-transformers/all-MiniLM-L6-v2
+2025-11-05 10:17:15,362 | INFO | ai_insight.qdrant_service | Collection 'conversation_history' already exists
+2025-11-05 10:17:15,363 | INFO | ai_insight.conversation_memory | Conversation memory initialized (enabled)
+2025-11-05 10:17:15,363 | INFO | ai_insight.conversation_memory | No thread_id provided, checking user's query history
+2025-11-05 10:17:15,363 | INFO | ai_insight.conversation_memory | First query from user, creating new thread
+2025-11-05 10:17:15,364 | INFO | ai_insight.thread_manager | Generated new thread_id: thread_20251105044715_e3a6d9d5
+2025-11-05 10:17:15,666 | INFO | ai_insight.thread_manager | Generated thread title: Branch-wise NFI Analysis
+2025-11-05 10:17:15,667 | INFO | ai_insight.conversation_memory | New thread created: thread_20251105044715_e3a6d9d5 | Title: Branch-wise NFI Analysis
+2025-11-05 10:17:15,686 | INFO | ai_insight.qdrant_service | Upserted conversation: user=1, thread=thread_20251105044715_e3a6d9d5, turn=thread_20251105044715_e3a6d9d5_turn_20251105044715364_d7c2a9
+2025-11-05 10:17:15,686 | INFO | ai_insight.conversation_memory | Successfully stored conversation: user=1, thread=thread_20251105044715_e3a6d9d5, turn=thread_20251105044715_e3a6d9d5_turn_20251105044715364_d7c2a9
+2025-11-05 10:17:15,688 | INFO | uvicorn.access | 10.16.1.57:60904 - "POST /api/sql HTTP/1.1" 200
+2025-11-05 10:18:55,611 | INFO | ai_insight.conversation_memory | Retrieved 0 threads for user test_user
+2025-11-05 10:18:55,612 | INFO | uvicorn.access | 127.0.0.1:49532 - "GET /sql/threads?user_id=test_user HTTP/1.1" 200
+2025-11-05 10:19:49,215 | INFO | ai_insight.conversation_memory | Retrieved 0 threads for user user_123
+2025-11-05 10:19:49,216 | INFO | uvicorn.access | 127.0.0.1:57278 - "GET /sql/threads?user_id=user_123 HTTP/1.1" 200
+2025-11-05 10:20:43,065 | INFO | ai_insight.conversation_memory | Retrieved 6 threads for user test_123
+2025-11-05 10:20:43,066 | INFO | uvicorn.access | 127.0.0.1:53570 - "GET /sql/threads?user_id=test_123 HTTP/1.1" 200
+2025-11-05 10:21:32,966 | INFO | uvicorn.access | 10.16.1.57:60261 - "POST /sql/threads?user_id=test_123 HTTP/1.1" 405
+2025-11-05 10:21:47,081 | INFO | uvicorn.access | 10.16.1.57:60266 - "POST /sql/threads?user_id=test_123 HTTP/1.1" 405
+2025-11-05 10:21:48,715 | INFO | uvicorn.access | 10.16.1.57:60266 - "POST /sql/threads?user_id=test_123 HTTP/1.1" 405
+2025-11-05 10:21:50,020 | INFO | uvicorn.access | 10.16.1.57:60266 - "POST /sql/threads?user_id=test_123 HTTP/1.1" 405
+2025-11-05 10:22:15,341 | INFO | ai_insight.conversation_memory | Retrieved 6 threads for user test_123
+2025-11-05 10:22:15,342 | INFO | uvicorn.access | 10.16.1.57:51670 - "GET /sql/threads?user_id=test_123 HTTP/1.1" 200
+2025-11-05 10:22:22,910 | INFO | ai_insight.conversation_memory | Retrieved 6 threads for user test_123
+2025-11-05 10:22:22,911 | INFO | uvicorn.access | 10.16.1.57:51680 - "GET /sql/threads?user_id=test_123 HTTP/1.1" 200
+2025-11-05 10:22:36,436 | INFO | ai_insight.conversation_memory | Retrieved 1 threads for user 1
+2025-11-05 10:22:36,437 | INFO | uvicorn.access | 10.16.1.57:51687 - "GET /sql/threads?user_id=1 HTTP/1.1" 200
+2025-11-05 10:27:15,605 | INFO | ai_insight.conversation_memory | Retrieved 6 threads for user test_123
+2025-11-05 10:27:15,605 | INFO | uvicorn.access | 10.16.1.9:63153 - "GET /sql/threads?user_id=test_123 HTTP/1.1" 200
+2025-11-05 10:28:00,286 | ERROR | ai_insight.api | Database connection error: [{'type': 'missing', 'loc': ('body',), 'msg': 'Field required', 'input': None}]
+2025-11-05 10:28:00,286 | INFO | uvicorn.access | 10.16.1.102:50434 - "POST /api/sql HTTP/1.1" 500
+2025-11-05 10:28:00,287 | ERROR | uvicorn.error | Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\prabh\OneDrive\Desktop\ai_insight\ai_insight_v3\Scripts\api_server.py", line 71, in get_db
+    yield engine
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\routing.py", line 109, in app
+    response = await f(request)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\routing.py", line 430, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: [{'type': 'missing', 'loc': ('body',), 'msg': 'Field required', 'input': None}]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\applications.py", line 1133, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\middleware\cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\routing.py", line 123, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\routing.py", line 106, in app
+    async with AsyncExitStack() as stack:
+  File "C:\Users\prabh\.conda\envs\rag\lib\contextlib.py", line 714, in __aexit__
+    raise exc_details[1]
+  File "C:\Users\prabh\.conda\envs\rag\lib\contextlib.py", line 697, in __aexit__
+    cb_suppress = await cb(*exc_details)
+  File "C:\Users\prabh\.conda\envs\rag\lib\contextlib.py", line 249, in __aexit__
+    raise RuntimeError("generator didn't stop after athrow()")
+RuntimeError: generator didn't stop after athrow()
+2025-11-05 10:28:21,732 | ERROR | ai_insight.api | Database connection error: [{'type': 'missing', 'loc': ('body',), 'msg': 'Field required', 'input': None}]
+2025-11-05 10:28:21,732 | INFO | uvicorn.access | 10.16.1.102:46586 - "POST /api/sql HTTP/1.1" 500
+2025-11-05 10:28:21,733 | ERROR | uvicorn.error | Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\prabh\OneDrive\Desktop\ai_insight\ai_insight_v3\Scripts\api_server.py", line 71, in get_db
+    yield engine
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\routing.py", line 109, in app
+    response = await f(request)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\routing.py", line 430, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: [{'type': 'missing', 'loc': ('body',), 'msg': 'Field required', 'input': None}]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\applications.py", line 1133, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\middleware\cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\routing.py", line 123, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\prabh\.conda\envs\rag\lib\site-packages\fastapi\routing.py", line 106, in app
+    async with AsyncExitStack() as stack:
+  File "C:\Users\prabh\.conda\envs\rag\lib\contextlib.py", line 714, in __aexit__
+    raise exc_details[1]
+  File "C:\Users\prabh\.conda\envs\rag\lib\contextlib.py", line 697, in __aexit__
+    cb_suppress = await cb(*exc_details)
+  File "C:\Users\prabh\.conda\envs\rag\lib\contextlib.py", line 249, in __aexit__
+    raise RuntimeError("generator didn't stop after athrow()")
+RuntimeError: generator didn't stop after athrow()
+2025-11-05 10:28:34,209 | INFO | ai_insight.conversation_memory | Retrieved 6 threads for user test_123
+2025-11-05 10:28:34,210 | INFO | uvicorn.access | 10.16.1.102:59806 - "GET /sql/threads?user_id=test_123 HTTP/1.1" 200
+2025-11-05 10:28:54,177 | INFO | ai_insight.conversation_memory | Retrieved 6 threads for user test_123
+2025-11-05 10:28:54,178 | INFO | uvicorn.access | 10.16.1.102:51420 - "GET /sql/threads?user_id=test_123 HTTP/1.1" 200
+2025-11-05 10:52:40,719 | INFO | uvicorn.error | Shutting down
+2025-11-05 10:52:40,827 | INFO | uvicorn.error | Waiting for application shutdown.
+2025-11-05 10:52:40,828 | INFO | uvicorn.error | Application shutdown complete.
+2025-11-05 10:52:40,828 | INFO | uvicorn.error | Finished server process [19188]
+2025-11-05 10:53:10,149 | WARNING | ai_insight.api | SSL cert/key not found or not absolute; starting without TLS. Set server.ssl_certfile and server.ssl_keyfile to absolute paths.
+2025-11-05 10:53:10,259 | INFO | uvicorn.error | Started server process [25964]
+2025-11-05 10:53:10,259 | INFO | uvicorn.error | Waiting for application startup.
+2025-11-05 10:53:10,260 | INFO | uvicorn.error | Application startup complete.
+2025-11-05 10:53:10,260 | INFO | uvicorn.error | Uvicorn running on http://0.0.0.0:5005 (Press CTRL+C to quit)
+2025-11-05 10:53:10,605 | INFO | ai_insight.qdrant_service | Creating NEW Qdrant client with storage: C:\Users\prabh\OneDrive\Desktop\ai_insight\ai_insight_v3\qdrant_data
+2025-11-05 10:53:10,661 | INFO | ai_insight.qdrant_service | Loading embedding model: sentence-transformers/all-MiniLM-L6-v2
+2025-11-05 10:53:14,409 | INFO | ai_insight.qdrant_service | Collection 'conversation_history' already exists
+2025-11-05 10:53:14,409 | INFO | ai_insight.conversation_memory | Conversation memory initialized (enabled)
+2025-11-05 10:53:14,410 | INFO | ai_insight.conversation_memory | Retrieved 4 turns for thread thread_20251104154030_f011bc51
+2025-11-05 10:53:14,410 | INFO | uvicorn.access | 127.0.0.1:49649 - "GET /sql/history?user_id=test_123&thread_id=thread_20251104154030_f011bc51 HTTP/1.1" 200
+2025-11-05 10:55:47,979 | INFO | ai_insight.conversation_memory | Retrieved 4 turns for thread thread_20251104154030_f011bc51
+2025-11-05 10:55:47,979 | INFO | uvicorn.access | 10.16.1.57:53635 - "GET /sql/history?user_id=test_123&thread_id=thread_20251104154030_f011bc51 HTTP/1.1" 200
+2025-11-05 10:57:24,663 | INFO | ai_insight.dynamic_prompt_builder | Vector retrieval system initialized
+2025-11-05 10:57:24,669 | INFO | ai_insight.dynamic_prompt_builder | System prompt loaded from JSON template
+2025-11-05 10:57:24,670 | WARNING | ai_insight.dynamic_prompt_builder | No footer_prompt found in template file
+2025-11-05 10:57:24,670 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 10:57:24,670 | INFO | ai_insight.sql_generator | 🔍 Processing query: Net interest income last month
+2025-11-05 10:57:24,670 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 10:57:25,638 | INFO | ai_insight.mrl_api | Processing query with LLM...
+2025-11-05 10:57:27,544 | INFO | ai_insight.mrl_api | Hierarchy fetched by LLM
+2025-11-05 10:57:27,545 | INFO | ai_insight.mrl_api | {'NII': {'level_1': ['Assets', 'Liabilities'], 'level_2': ['Funded Assets', 'Funded Liability']}}
+2025-11-05 10:57:27,587 | INFO | ai_insight.mrl_api | Retrieved rows by product: {'NII': 190}
+2025-11-05 10:57:27,588 | INFO | ai_insight.dynamic_prompt_builder | Building dynamic prompt...
+2025-11-05 10:57:33,501 | INFO | ai_insight.sql_generator | SQL generated by LLM
+2025-11-05 10:57:33,502 | INFO | ai_insight.sql_generator | SQL generated: SELECT 
+    ROUND(SUM(CURRENT_MONTH), 2) AS net_interest_income_last_month
+FROM 
+    DM_MIS_DETAILS_VW1
+WHERE 
+    MRL_LINE IN ('M124030','M124040','M124050','M125010','M125020','M127010','M127040','M131010','M151010','M151020','M151040','M151050','M151070','M151080','M151084','M151086','M151088','M151090','M151100','M151110','M151120','M151130','M151140','M151150','M151160','M151180','M151190','M151210','M151220','M151240','M151250','M151260','M151280','M151290','M151310','M151320','M151330','M151350','M151360','M151370','M151380','M113060','M113070','M113090','M113100','M113120','M113130','M113150','M113160','M113170','M113180','M113190','M113200','M113210','M121020','M121030','M121050','M122015','M122020','M122040','M122045','M122055','M122060','M122080','M122090','M122100','M122110','M122120','M122130','M122140','M122150','M122160','M122180','M122190','M122210','M122220','M123010','M123030','M123040','M123050','M123070','M123080','M123100','M123110','M124010','M124020','M211210','M211220','M211240','M211250','M211270','M211280','M211300','M211310','M211320','M211330','M211340','M211350','M211370','M211380','M211400','M211410','M211430','M211820','M211830','M211850','M213010','M213020','M213040','M213050','M213070','M213080','M213090','M213100','M213110','M213120','M213130','M213160','M213180','M213810','M213820','M215100','M215104','M215106','M215200','M151390','M151400','M151410','M151420','M151430','M151440','M151450','M151460','M151470','M151480','M151500','M151510','M151520','M151540','M151550','M151570','M151580','M151590','M151610','M151620','M151640','M127030','M151030','M151060','M151082','M151170','M151200','M151230','M151270','M151300','M151340','M151365','M113050','M113080','M113110','M113140','M121010','M121040','M122010','M122030','M122050','M122070','M122170','M122200','M123020','M123060','M123090','M211230','M211260','M211290','M211360','M211390','M211420','M211810','M211840','M213030','M213060','M213170','M213200','M215102','M151490','M151530','M151560','M151600','M151630')
+    AND BAL_TYPE = 3
+    AND CCY_TYPE = 'BCY'
+2025-11-05 10:57:34,196 | INFO | ai_insight.conversation_memory | No thread_id provided, checking user's query history
+2025-11-05 10:57:34,196 | INFO | ai_insight.conversation_memory | First query from user, creating new thread
+2025-11-05 10:57:34,196 | INFO | ai_insight.thread_manager | Generated new thread_id: thread_20251105052734_b91db3f9
+2025-11-05 10:57:34,505 | INFO | ai_insight.thread_manager | Generated thread title: Net Interest Income Last Month
+2025-11-05 10:57:34,505 | INFO | ai_insight.conversation_memory | New thread created: thread_20251105052734_b91db3f9 | Title: Net Interest Income Last Month
+2025-11-05 10:57:34,535 | INFO | ai_insight.qdrant_service | Upserted conversation: user=user_123, thread=thread_20251105052734_b91db3f9, turn=thread_20251105052734_b91db3f9_turn_20251105052734196_57a6b7
+2025-11-05 10:57:34,535 | INFO | ai_insight.conversation_memory | Successfully stored conversation: user=user_123, thread=thread_20251105052734_b91db3f9, turn=thread_20251105052734_b91db3f9_turn_20251105052734196_57a6b7
+2025-11-05 10:57:34,536 | INFO | uvicorn.access | 127.0.0.1:56862 - "POST /api/sql HTTP/1.1" 200
+2025-11-05 10:57:58,561 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 10:57:58,562 | INFO | ai_insight.sql_generator | 🔍 Processing query: Net interest income this month
+2025-11-05 10:57:58,562 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 10:57:59,406 | INFO | ai_insight.mrl_api | Processing query with LLM...
+2025-11-05 10:58:01,335 | INFO | ai_insight.mrl_api | Hierarchy fetched by LLM
+2025-11-05 10:58:01,335 | INFO | ai_insight.mrl_api | {'NII': {'level_1': ['Assets', 'Liabilities'], 'level_2': ['Funded Assets', 'Funded Liability']}}
+2025-11-05 10:58:01,393 | INFO | ai_insight.mrl_api | Retrieved rows by product: {'NII': 190}
+2025-11-05 10:58:01,393 | INFO | ai_insight.dynamic_prompt_builder | Building dynamic prompt...
+2025-11-05 10:58:07,046 | INFO | ai_insight.sql_generator | SQL generated by LLM
+2025-11-05 10:58:07,046 | INFO | ai_insight.sql_generator | SQL generated: SELECT 
+    ROUND(SUM(MTD), 2) AS net_interest_income_this_month
+FROM 
+    DM_MIS_DETAILS_VW1
+WHERE 
+    MRL_LINE IN ('M124030','M124040','M124050','M125010','M125020','M127010','M127040','M131010','M151010','M151020','M151040','M151050','M151070','M151080','M151084','M151086','M151088','M151090','M151100','M151110','M151120','M151130','M151140','M151150','M151160','M151180','M151190','M151210','M151220','M151240','M151250','M151260','M151280','M151290','M151310','M151320','M151330','M151350','M151360','M151370','M151380','M113060','M113070','M113090','M113100','M113120','M113130','M113150','M113160','M113170','M113180','M113190','M113200','M113210','M121020','M121030','M121050','M122015','M122020','M122040','M122045','M122055','M122060','M122080','M122090','M122100','M122110','M122120','M122130','M122140','M122150','M122160','M122180','M122190','M122210','M122220','M123010','M123030','M123040','M123050','M123070','M123080','M123100','M123110','M124010','M124020','M211210','M211220','M211240','M211250','M211270','M211280','M211300','M211310','M211320','M211330','M211340','M211350','M211370','M211380','M211400','M211410','M211430','M211820','M211830','M211850','M213010','M213020','M213040','M213050','M213070','M213080','M213090','M213100','M213110','M213120','M213130','M213160','M213180','M213810','M213820','M215100','M215104','M215106','M215200','M151390','M151400','M151410','M151420','M151430','M151440','M151450','M151460','M151470','M151480','M151500','M151510','M151520','M151540','M151550','M151570','M151580','M151590','M151610','M151620','M151640','M127030','M151030','M151060','M151082','M151170','M151200','M151230','M151270','M151300','M151340','M151365','M113050','M113080','M113110','M113140','M121010','M121040','M122010','M122030','M122050','M122070','M122170','M122200','M123020','M123060','M123090','M211230','M211260','M211290','M211360','M211390','M211420','M211810','M211840','M213030','M213060','M213170','M213200','M215102','M151490','M151530','M151560','M151600','M151630')
+    AND BAL_TYPE = 3
+    AND CCY_TYPE = 'BCY'
+2025-11-05 10:58:07,725 | INFO | ai_insight.conversation_memory | No thread_id provided, checking user's query history
+2025-11-05 10:58:07,725 | INFO | ai_insight.conversation_memory | User has previous queries, checking relevance to most recent thread: thread_20251105052734_b91db3f9
+2025-11-05 10:58:07,900 | INFO | ai_insight.context_checker | Relevance check result: True | Reason: YES
+2025-11-05 10:58:07,900 | INFO | ai_insight.conversation_memory | Query relevant to most recent thread thread_20251105052734_b91db3f9, continuing thread
+2025-11-05 10:58:07,901 | INFO | ai_insight.conversation_memory | Continuing thread thread_20251105052734_b91db3f9 with title: Net Interest Income Last Month
+2025-11-05 10:58:07,925 | INFO | ai_insight.qdrant_service | Upserted conversation: user=user_123, thread=thread_20251105052734_b91db3f9, turn=thread_20251105052734_b91db3f9_turn_20251105052807901_0d44ae
+2025-11-05 10:58:07,926 | INFO | ai_insight.conversation_memory | Successfully stored conversation: user=user_123, thread=thread_20251105052734_b91db3f9, turn=thread_20251105052734_b91db3f9_turn_20251105052807901_0d44ae
+2025-11-05 10:58:07,926 | INFO | uvicorn.access | 127.0.0.1:56977 - "POST /api/sql HTTP/1.1" 200
+2025-11-05 10:58:26,789 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 10:58:26,790 | INFO | ai_insight.sql_generator | 🔍 Processing query: total deposits this month
+2025-11-05 10:58:26,790 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 10:58:27,720 | INFO | ai_insight.mrl_api | Processing query with LLM...
+2025-11-05 10:58:30,052 | INFO | ai_insight.mrl_api | Hierarchy fetched by LLM
+2025-11-05 10:58:30,053 | INFO | ai_insight.mrl_api | {'deposit': {'level_1': ['Liabilities'], 'level_2': ['Funded Liability'], 'level_3': ['Customer Deposits', 'Deposits from Banks']}}
+2025-11-05 10:58:30,102 | INFO | ai_insight.mrl_api | Retrieved rows by product: {'deposit': 24}
+2025-11-05 10:58:30,103 | INFO | ai_insight.dynamic_prompt_builder | Building dynamic prompt...
+2025-11-05 10:58:35,795 | INFO | ai_insight.sql_generator | SQL generated by LLM
+2025-11-05 10:58:35,796 | INFO | ai_insight.sql_generator | SQL generated: SELECT 
+    ROUND(SUM(MTD), 2) AS total_deposits_this_month
+FROM 
+    DM_MIS_DETAILS_VW1
+WHERE 
+    MRL_LINE IN ('M213010','M213020','M213040','M213050','M213070','M213080','M213090','M213100','M213110','M213120','M213130','M213160','M213180','M213810','M213820','M215100','M215104','M215106','M215200','M213030','M213060','M213170','M213200','M215102')
+    AND BAL_TYPE = 1
+    AND CCY_TYPE = 'BCY'
+2025-11-05 10:58:36,556 | INFO | ai_insight.conversation_memory | No thread_id provided, checking user's query history
+2025-11-05 10:58:36,556 | INFO | ai_insight.conversation_memory | User has previous queries, checking relevance to most recent thread: thread_20251105052734_b91db3f9
+2025-11-05 10:58:36,670 | INFO | ai_insight.context_checker | Relevance check result: False | Reason: NO
+2025-11-05 10:58:36,671 | INFO | ai_insight.conversation_memory | Query not relevant to most recent thread, creating new thread. Reason: NO
+2025-11-05 10:58:36,672 | INFO | ai_insight.thread_manager | Generated new thread_id: thread_20251105052836_f86208a2
+2025-11-05 10:58:36,906 | INFO | ai_insight.thread_manager | Generated thread title: Monthly Deposit Total Query
+2025-11-05 10:58:36,906 | INFO | ai_insight.conversation_memory | New thread created: thread_20251105052836_f86208a2 | Title: Monthly Deposit Total Query
+2025-11-05 10:58:36,946 | INFO | ai_insight.qdrant_service | Upserted conversation: user=user_123, thread=thread_20251105052836_f86208a2, turn=thread_20251105052836_f86208a2_turn_20251105052836672_743386
+2025-11-05 10:58:36,946 | INFO | ai_insight.conversation_memory | Successfully stored conversation: user=user_123, thread=thread_20251105052836_f86208a2, turn=thread_20251105052836_f86208a2_turn_20251105052836672_743386
+2025-11-05 10:58:36,946 | INFO | uvicorn.access | 127.0.0.1:54725 - "POST /api/sql HTTP/1.1" 200
+2025-11-05 11:04:33,944 | INFO | ai_insight.conversation_memory | Retrieved 6 threads for user test_123
+2025-11-05 11:04:33,944 | INFO | uvicorn.access | 10.16.1.9:62548 - "GET /sql/threads?user_id=test_123 HTTP/1.1" 200
+2025-11-05 11:09:17,012 | INFO | uvicorn.access | 10.16.1.9:53370 - "GET /health HTTP/1.1" 200
+2025-11-05 11:24:49,867 | INFO | ai_insight.conversation_memory | Retrieved 0 threads for user user_12345
+2025-11-05 11:24:49,868 | INFO | uvicorn.access | 10.16.1.9:56818 - "GET /sql/threads?user_id=user_12345&limit=10 HTTP/1.1" 200
+2025-11-05 11:24:58,182 | INFO | ai_insight.conversation_memory | Retrieved 2 threads for user user_123
+2025-11-05 11:24:58,182 | INFO | uvicorn.access | 10.16.1.9:60944 - "GET /sql/threads?user_id=user_123&limit=10 HTTP/1.1" 200
+2025-11-05 11:26:30,595 | INFO | ai_insight.conversation_memory | Retrieved 6 threads for user test_123
+2025-11-05 11:26:30,596 | INFO | uvicorn.access | 10.16.1.9:58133 - "GET /sql/threads?user_id=test_123&limit=10 HTTP/1.1" 200
+2025-11-05 11:45:45,168 | INFO | uvicorn.access | 10.16.1.9:49910 - "GET /sql/threads HTTP/1.1" 422
+2025-11-05 11:46:36,789 | INFO | uvicorn.access | 10.16.1.9:64722 - "GET /sql/threads HTTP/1.1" 422
+2025-11-05 11:48:18,949 | INFO | uvicorn.access | 10.16.1.9:58970 - "GET /sql/threads HTTP/1.1" 422
+2025-11-05 11:48:24,885 | INFO | uvicorn.access | 10.16.1.9:56924 - "GET /sql/threads HTTP/1.1" 422
+2025-11-05 11:49:03,279 | INFO | uvicorn.access | 10.16.1.9:63810 - "GET /sql/threads HTTP/1.1" 422
+2025-11-05 11:49:05,633 | INFO | uvicorn.access | 10.16.1.9:63810 - "GET /sql/threads HTTP/1.1" 422
+2025-11-05 11:49:14,459 | INFO | uvicorn.access | 10.16.1.9:49530 - "POST /sql/threads HTTP/1.1" 405
+2025-11-05 11:49:31,336 | INFO | uvicorn.error | Shutting down
+2025-11-05 11:49:31,450 | INFO | uvicorn.error | Waiting for application shutdown.
+2025-11-05 11:49:31,454 | INFO | uvicorn.error | Application shutdown complete.
+2025-11-05 11:49:31,457 | INFO | uvicorn.error | Finished server process [25964]
+2025-11-05 11:49:57,358 | WARNING | ai_insight.api | SSL cert/key not found or not absolute; starting without TLS. Set server.ssl_certfile and server.ssl_keyfile to absolute paths.
+2025-11-05 11:49:57,468 | INFO | uvicorn.error | Started server process [8184]
+2025-11-05 11:49:57,468 | INFO | uvicorn.error | Waiting for application startup.
+2025-11-05 11:49:57,469 | INFO | uvicorn.error | Application startup complete.
+2025-11-05 11:49:57,469 | INFO | uvicorn.error | Uvicorn running on http://0.0.0.0:5005 (Press CTRL+C to quit)
+2025-11-05 11:50:17,487 | INFO | ai_insight.qdrant_service | Creating NEW Qdrant client with storage: C:\Users\prabh\OneDrive\Desktop\ai_insight\ai_insight_v3\qdrant_data
+2025-11-05 11:50:17,569 | INFO | ai_insight.qdrant_service | Loading embedding model: sentence-transformers/all-MiniLM-L6-v2
+2025-11-05 11:50:21,153 | INFO | ai_insight.qdrant_service | Collection 'conversation_history' already exists
+2025-11-05 11:50:21,153 | INFO | ai_insight.conversation_memory | Conversation memory initialized (enabled)
+2025-11-05 11:50:21,153 | INFO | ai_insight.conversation_memory | Retrieved 2 threads for user user_123
+2025-11-05 11:50:21,154 | INFO | uvicorn.access | 10.16.1.9:53697 - "POST /sql/threads HTTP/1.1" 200
+2025-11-05 11:50:31,713 | INFO | ai_insight.conversation_memory | Retrieved 6 threads for user test_123
+2025-11-05 11:50:31,713 | INFO | uvicorn.access | 10.16.1.9:50920 - "POST /sql/threads HTTP/1.1" 200
+2025-11-05 12:27:45,494 | INFO | ai_insight.conversation_memory | Retrieved 6 threads for user test_123
+2025-11-05 12:27:45,496 | INFO | uvicorn.access | 10.16.1.9:56120 - "POST /sql/threads HTTP/1.1" 200
+2025-11-05 12:27:54,293 | INFO | ai_insight.conversation_memory | Retrieved 2 threads for user user_123
+2025-11-05 12:27:54,293 | INFO | uvicorn.access | 10.16.1.9:64733 - "POST /sql/threads HTTP/1.1" 200
+2025-11-05 12:30:12,763 | INFO | uvicorn.access | 127.0.0.1:65518 - "GET /sql/history?user_id=test_123&thread_id=thread_20251104154030_f011bc51 HTTP/1.1" 405
+2025-11-05 12:30:16,212 | INFO | uvicorn.access | 127.0.0.1:65518 - "POST /sql/history?user_id=test_123&thread_id=thread_20251104154030_f011bc51 HTTP/1.1" 422
+2025-11-05 12:58:17,212 | INFO | uvicorn.error | Shutting down
+2025-11-05 12:58:17,322 | INFO | uvicorn.error | Waiting for application shutdown.
+2025-11-05 12:58:17,323 | INFO | uvicorn.error | Application shutdown complete.
+2025-11-05 12:58:17,323 | INFO | uvicorn.error | Finished server process [8184]
+2025-11-05 12:58:31,758 | WARNING | ai_insight.api | SSL cert/key not found or not absolute; starting without TLS. Set server.ssl_certfile and server.ssl_keyfile to absolute paths.
+2025-11-05 12:58:31,807 | INFO | uvicorn.error | Started server process [29108]
+2025-11-05 12:58:31,807 | INFO | uvicorn.error | Waiting for application startup.
+2025-11-05 12:58:31,807 | INFO | uvicorn.error | Application startup complete.
+2025-11-05 12:58:31,808 | INFO | uvicorn.error | Uvicorn running on http://0.0.0.0:5005 (Press CTRL+C to quit)
+2025-11-05 13:02:22,059 | INFO | ai_insight.thread_manager | Generated new thread_id: thread_20251105073222_2c784c60
+2025-11-05 13:02:22,059 | INFO | ai_insight.api | Generated new thread_id for user user_123: thread_20251105073222_2c784c60
+2025-11-05 13:02:22,060 | INFO | uvicorn.access | 10.16.1.9:65185 - "POST /sql/threads/new HTTP/1.1" 200
+2025-11-05 13:02:30,274 | INFO | ai_insight.qdrant_service | Creating NEW Qdrant client with storage: C:\Users\prabh\OneDrive\Desktop\ai_insight\ai_insight_v3\qdrant_data
+2025-11-05 13:02:30,290 | INFO | ai_insight.qdrant_service | Loading embedding model: sentence-transformers/all-MiniLM-L6-v2
+2025-11-05 13:02:33,915 | INFO | ai_insight.qdrant_service | Collection 'conversation_history' already exists
+2025-11-05 13:02:33,915 | INFO | ai_insight.conversation_memory | Conversation memory initialized (enabled)
+2025-11-05 13:02:33,916 | INFO | ai_insight.conversation_memory | Retrieved 2 threads for user user_123
+2025-11-05 13:02:33,917 | INFO | uvicorn.access | 10.16.1.9:51874 - "POST /sql/threads HTTP/1.1" 200
+2025-11-05 13:08:42,316 | INFO | ai_insight.conversation_memory | Retrieved 6 threads for user test_123
+2025-11-05 13:08:42,316 | INFO | uvicorn.access | 10.16.1.9:51802 - "POST /sql/threads HTTP/1.1" 200
+2025-11-05 13:18:09,529 | INFO | ai_insight.conversation_memory | Retrieved 4 turns for thread thread_20251104154030_f011bc51
+2025-11-05 13:18:09,529 | INFO | uvicorn.access | 10.16.1.9:63876 - "POST /sql/history HTTP/1.1" 200
+2025-11-05 13:19:56,056 | INFO | uvicorn.access | 10.16.1.57:62480 - "GET /health HTTP/1.1" 200
+2025-11-05 13:19:56,135 | INFO | uvicorn.access | 10.16.1.57:62480 - "GET /favicon.ico HTTP/1.1" 404
+2025-11-05 14:45:55,272 | INFO | ai_insight.thread_manager | Generated new thread_id: thread_20251105091555_7e1c2c7d
+2025-11-05 14:45:55,288 | INFO | ai_insight.api | Generated new thread_id for user demo_user: thread_20251105091555_7e1c2c7d
+2025-11-05 14:45:55,288 | INFO | uvicorn.access | 10.16.1.23:52201 - "POST /sql/threads/new HTTP/1.1" 200
+2025-11-05 14:46:56,106 | INFO | ai_insight.conversation_memory | Retrieved 6 threads for user test_123
+2025-11-05 14:46:56,107 | INFO | uvicorn.access | 10.16.1.23:52229 - "POST /sql/threads HTTP/1.1" 200
+2025-11-05 14:49:53,109 | INFO | ai_insight.conversation_memory | Retrieved 4 turns for thread thread_20251104154030_f011bc51
+2025-11-05 14:49:53,110 | INFO | uvicorn.access | 10.16.1.23:52254 - "POST /sql/history HTTP/1.1" 200
+2025-11-05 14:50:36,527 | INFO | uvicorn.access | 10.16.1.23:52262 - "POST /sql/threads/delete HTTP/1.1" 405
+2025-11-05 14:53:05,904 | INFO | ai_insight.api | Deleted thread thread_20251104151125_e94017a3 for user test_123
+2025-11-05 14:53:05,905 | INFO | uvicorn.access | 10.16.1.23:52324 - "DELETE /sql/threads/delete HTTP/1.1" 200
+2025-11-05 17:59:49,003 | INFO | ai_insight.dynamic_prompt_builder | Vector retrieval system initialized
+2025-11-05 17:59:49,005 | INFO | ai_insight.dynamic_prompt_builder | System prompt loaded from JSON template
+2025-11-05 17:59:49,005 | WARNING | ai_insight.dynamic_prompt_builder | No footer_prompt found in template file
+2025-11-05 17:59:49,006 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 17:59:49,006 | INFO | ai_insight.sql_generator | 🔍 Processing query: dog
+2025-11-05 17:59:49,006 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 17:59:49,837 | INFO | ai_insight.mrl_api | Processing query with LLM...
+2025-11-05 17:59:51,451 | INFO | ai_insight.mrl_api | Hierarchy fetched by LLM
+2025-11-05 17:59:51,452 | INFO | ai_insight.mrl_api | {}
+2025-11-05 17:59:51,452 | ERROR | ai_insight.mrl_api | No valid hierarchy data extracted from query
+2025-11-05 17:59:51,453 | INFO | ai_insight.mrl_api | Fallback to RAG
+2025-11-05 17:59:51,453 | WARNING | ai_insight.mrl_rag | Data file not found: ../data/mrl_dataset.csv
+2025-11-05 17:59:51,454 | WARNING | ai_insight.mrl_rag | No data loaded for RAG
+2025-11-05 17:59:51,454 | INFO | ai_insight.mrl_rag | Processing query: dog
+2025-11-05 17:59:51,454 | INFO | ai_insight.mrl_api | No relevant matches found in RAG system
+2025-11-05 17:59:51,454 | INFO | ai_insight.mrl_api | Successfully extracted hierarchy from RAG
+2025-11-05 17:59:51,454 | INFO | ai_insight.mrl_api | {}
+2025-11-05 17:59:51,489 | INFO | ai_insight.mrl_api | Retrieved rows by product: {'direct_query': 855}
+2025-11-05 17:59:51,490 | INFO | ai_insight.dynamic_prompt_builder | Building dynamic prompt...
+2025-11-05 17:59:51,511 | INFO | ai_insight.dynamic_prompt_builder | ⚠️  No keywords extracted, skipping dynamic sections
+2025-11-05 17:59:55,967 | INFO | ai_insight.sql_generator | SQL generated by LLM
+2025-11-05 17:59:55,967 | INFO | ai_insight.sql_generator | SQL generated: SELECT 
+    ROUND(SUM(BUSINESS_DAY), 2) AS total_deposit
+FROM DM_MIS_DETAILS_VW1
+WHERE MRL_LINE IN ('M124030','M124040','M124050','M125010','M125020','M125030','M127010','M127020','M127040','M131010','M131020','M133010','M135010','M151010','M151020','M151040','M151050','M151070','M151080','M151084','M151086','M151088','M151090','M151100','M151110','M151120','M151130','M151140','M151150','M151160','M151161','M151180','M151190','M151210','M151220','M151240','M151250','M151260','M151280','M151290','M151310','M151320','M151330','M151350','M151360','M151370','M151380','M000000','M111010','M111020','M111040','M111050','M111060','M111070','M111080','M111090','M111100','M111110','M112010','M112030','M112040','M113010','M113020','M113040','M113049','M113060','M113070','M113090','M113100','M113120','M113130','M113150','M113160','M113170','M113180','M113190','M113200','M113210','M113220','M121020','M121030','M121050','M122015','M122020','M122040','M122045','M122055','M122060','M122080','M122090','M122100','M122110','M122120','M122130','M122140','M122150','M122160','M122180','M122190','M122210','M122220','M123010','M123030','M123040','M123050','M123070','M123080','M123100','M123110','M124010','M124020','M163060','M163070','M163080','M163090','M163100','M163110','M163120','M163130','M163140','M163160','M163180','M165010','M165020','M165040','M165050','M165070','M165090','M165110','M165120','M171100','M175100','M181110','M181210','M181320','M181510','M181520','M181610','M181620','M181710','M181720','M181810','M181821','M183100','M185100','M211110','M211210','M211220','M211240','M211250','M211270','M211280','M211300','M211310','M211320','M211330','M211340','M211350','M211370','M211380','M211400','M211410','M211430','M211820','M211830','M211850','M213010','M213020','M213040','M213050','M213070','M213080','M213090','M213100','M213110','M213120','M213130','M213150','M213160','M213180','M213190','M213810','M213820','M215100','M215104','M215106','M215200','M231010','M231030','M231050','M231070','M151390','M151400','M151410','M151420','M151430','M151440','M151450','M151460','M151470','M151480','M151500','M151510','M151520','M151540','M151550','M151570','M151580','M151590','M151610','M151620','M151640','M153011','M153020','M153030','M153032','M153040','M153110','M153111','M153112','M153120','M161010','M161020','M161030','M161035','M161045','M161055','M161060','M161070','M161080','M161085','M161095','M161105','M161110','M161120','M161130','M161135','M161140','M161145','M161150','M161155','M161160','M161170','M161175','M161185','M161195','M161200','M161210','M161215','M161225','M161235','M161240','M161250','M161260','M161265','M161275','M161280','M161290','M161300','M161305','M161315','M161320','M161325','M161330','M161335','M161340','M161345','M161355','M161360','M161370','M161380','M161385','M161395','M161405','M161410','M161420','M161425','M161435','M161445','M161450','M161460','M161810','M161820','M163010','M163030','M163040','M231080','M231090','M231100','M231110','M231120','M231140','M231150','M231170','M231180','M231200','M231220','M231230','M231250','M231270','M231280','M231300','M231320','M233020','M233040','M233050','M233070','M233080','M233090','M233100','M233110','M233120','M233130','M235010','M237020','M251010','M253010','M253022','M253030','M253050','M253070','M253090','M253100','M253120','M253130','M255010','M255030','M255050','M255060','M255080','M255100','M255110','M523120','M523130','M523140','M523150','M523160','M523170','M523180','M523200','M523220','M523230','M523250','M523260','M523272','M523290','M523310','M523320','M523340','M523360','M523380','M523390','M523401','M523420','M523440','M523450','M523470','M523490','M523510','M523520','M523530','M523990','M531010','M531020','M531030','M531040','M531060','M531080','M531090','M531110','M531130','M531140','M531310','M531330','M531340','M531360','M533010','M533020','M533040','M533060','M535010','M535020','M537010','M571010','M571030','M255120','M255130','M255140','M255150','M255160','M255170','M255180','M255190','M255210','M257020','M311010','M311020','M311030','M313010','M313030','M313040','M315020','M317020','M317030','M510010','M510030','M510040','M510060','M510070','M510080','M511010','M511020','M511030','M511040','M511050','M511060','M511080','M511100','M511110','M511130','M511150','M511160','M511180','M511200','M511210','M511230','M513020','M513040','M513050','M513070','M515020','M515040','M515050','M515070','M515080','M515090','M517010','M517020','M517030','M517040','M517060','M517080','M517090','M521020','M521030','M521050','M521070','M521080','M521100','M521110','M521130','M521150','M521160','M521990','M523010','M523030','M523050','M523060','M523080','M523100','M523110','M700010','M711010','M711020','M711030','M711040','M711050','M711070','M711080','M711100','M711120','M711140','M711150','M711170','M711190','M711200','M711220','M711240','M811010','M811030','M811050','M811060','M811080','M811100','M811120','M811130','M811140','M811150','M811160','M811170','M811180','M811190','M811200','M811220','M811240','M999998','M127030','M135015','M138010','M151030','M151060','M151082','M151170','M151200','M151230','M151270','M151300','M151340','M151365','M112020','M113030','M113050','M113080','M113110','M113140','M121010','M121040','M122010','M122030','M122050','M122070','M122170','M122200','M123020','M123060','M123090','M163150','M163170','M165030','M165060','M165080','M165100','M165130','M175010','M175990','M181120','M181220','M181310','M571040','M571990','M610010','M610020','M610030','M610050','M610060','M621100','M623200','M625010','M625020','M625040','M625060','M625070','M625090','M625110','M625130','M625140','M627010','M627030','M627040','M627060','M627080','M627090','M627110','M631010','M631020','M631030','M631040','M631050','M631060','M631070','M640015','M640020','M640030','M640040','M640045','M640055','M640210','M640410','M640610','M640620','M640810','M640830','M640850','M640870','M641006','M641009','M641015','M641018','M641021','M641024','M641027','M641030','M641033','M641036','M641039','M641045','M641051','M641054','M641063','M641069','M641115','M641125','M641135','M641145','M641210','M641230','M641250','M641270','M641410','M641430','M641440','M641610','M641705','M641710','M641715','M641720','M641725','M641730','M641735','M641740','M641750','M641760','M641765','M641775','M641820','M641830','M642010','M642030','M642050','M648920','M680020','M680030','M680050','M680070','M680080','M680100','M161295','M161310','M161350','M161365','M161375','M161390','M161400','M161415','M161430','M161440','M161455','M161465','M163020','M163050','M231130','M231160','M231190','M231210','M231240','M231260','M231290','M231310','M233010','M233030','M233060','M233810','M235020','M237010','M251020','M253020','M253040','M253060','M253080','M253110','M255020','M255040','M255070','M255090','M523190','M523210','M523240','M571020','M255200','M255990','M257010','M259990','M311021','M313020','M313050','M315010','M510020','M510050','M511070','M511090','M511120','M511140','M511170','M523270','M523280','M523300','M523330','M523350','M523370','M523400','M523410','M523430','M523460','M523480','M523500','M531050','M531070','M531100','M531120','M531150','M531320','M531350','M533030','M533050','M533070','M181410','M181420','M181820','M185200','M211230','M211260','M211290','M211360','M211390','M211420','M211810','M211840','M213030','M213060','M213140','M213170','M213200','M215102','M231020','M231040','M231060','M151490','M151530','M151560','M151600','M151630','M153010','M153012','M153031','M153130','M161015','M161025','M161040','M161050','M161065','M161075','M161090','M161100','M161115','M161125','M161165','M161180','M161190','M161205','M161220','M161230','M161245','M161255','M161270','M161285','M511190','M511220','M513010','M513030','M513060','M515010','M515030','M515060','M517050','M517070','M521010','M521040','M521060','M521090','M521120','M521140','M521170','M523020','M523040','M523070','M523090','M711060','M711090','M711110','M711130','M711160','M711180','M711210','M711230','M711990','M811020','M811040','M811070','M811090','M811110','M811210','M811230','M811990','M610040','M610070','M621200','M623100','M625030','M625050','M625080','M625100','M625120','M627020','M627050','M627070','M627100','M627120','M631080','M640010','M640025','M640035','M640050','M640060','M640820','M640840','M640860','M641003','M641012','M641034','M641042','M641048','M641060','M641066','M641110','M641120','M641130','M641140','M641150','M641220','M641240','M641420','M641745','M641755','M641770','M641780','M641810','M642020','M642040','M648910','M651010','M661010','M680010','M680040','M680060','M680090')
+AND BAL_TYPE = 1
+AND CCY_TYPE = 'BCY'
+2025-11-05 18:06:37,622 | INFO | ai_insight.dynamic_prompt_builder | Vector retrieval system initialized
+2025-11-05 18:06:37,625 | INFO | ai_insight.dynamic_prompt_builder | System prompt loaded from JSON template
+2025-11-05 18:06:37,625 | WARNING | ai_insight.dynamic_prompt_builder | No footer_prompt found in template file
+2025-11-05 18:06:37,625 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 18:06:37,626 | INFO | ai_insight.sql_generator | 🔍 Processing query: dog
+2025-11-05 18:06:37,626 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 18:06:37,627 | WARNING | ai_insight.sql_generator | ❌ Query is out-of-domain (Confidence: 100.0%)
+2025-11-05 18:07:42,225 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 18:07:42,226 | INFO | ai_insight.sql_generator | 🔍 Processing query: dog
+2025-11-05 18:07:42,226 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 18:07:42,227 | WARNING | ai_insight.sql_generator | ❌ Query is out-of-domain (Confidence: 100.0%)
+2025-11-05 18:08:11,463 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 18:08:11,464 | INFO | ai_insight.sql_generator | 🔍 Processing query: NFI
+2025-11-05 18:08:11,464 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 18:08:11,465 | WARNING | ai_insight.sql_generator | ❌ Query is out-of-domain (Confidence: 100.0%)
+2025-11-05 18:08:21,638 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 18:08:21,638 | INFO | ai_insight.sql_generator | 🔍 Processing query: nfi
+2025-11-05 18:08:21,639 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 18:08:21,640 | WARNING | ai_insight.sql_generator | ❌ Query is out-of-domain (Confidence: 100.0%)
+2025-11-05 18:08:51,288 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 18:08:51,289 | INFO | ai_insight.sql_generator | 🔍 Processing query: Give me branch wise NFI
+2025-11-05 18:08:51,289 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 18:08:51,290 | WARNING | ai_insight.sql_generator | ❌ Query is out-of-domain (Confidence: 80.0%)
+2025-11-05 18:08:57,626 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 18:08:57,626 | INFO | ai_insight.sql_generator | 🔍 Processing query: term loans
+2025-11-05 18:08:57,626 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 18:08:57,627 | INFO | ai_insight.sql_generator | ✅ Query is in-domain (Confidence: 100.0%)
+2025-11-05 18:08:59,188 | INFO | ai_insight.mrl_api | Processing query with LLM...
+2025-11-05 18:09:02,176 | INFO | ai_insight.mrl_api | Hierarchy fetched by LLM
+2025-11-05 18:09:02,176 | INFO | ai_insight.mrl_api | {'term_loans': {'level_1': ['Assets'], 'level_2': ['Funded Assets'], 'level_3': ['Loans & Advances'], 'level_4': ['Loans'], 'level_5': ['Term Loan']}}
+2025-11-05 18:09:02,248 | INFO | ai_insight.mrl_api | Retrieved rows by product: {'term_loans': 14}
+2025-11-05 18:09:02,249 | INFO | ai_insight.dynamic_prompt_builder | Building dynamic prompt...
+2025-11-05 18:09:06,941 | INFO | ai_insight.sql_generator | SQL generated by LLM
+2025-11-05 18:09:06,941 | INFO | ai_insight.sql_generator | SQL generated: SELECT 
+    ROUND(SUM(BUSINESS_DAY), 2) AS total_term_loans
+FROM DM_MIS_DETAILS_VW1
+WHERE MRL_LINE IN ('M151050','M151070','M151080','M151084','M151086','M151088','M151090','M151100','M151110','M151120','M151500','M151060','M151082','M151490')
+AND BAL_TYPE = 1
+AND CCY_TYPE = 'BCY'
+2025-11-05 18:14:11,778 | INFO | ai_insight.dynamic_prompt_builder | Vector retrieval system initialized
+2025-11-05 18:14:11,780 | INFO | ai_insight.dynamic_prompt_builder | System prompt loaded from JSON template
+2025-11-05 18:14:11,781 | WARNING | ai_insight.dynamic_prompt_builder | No footer_prompt found in template file
+2025-11-05 18:14:11,781 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 18:14:11,781 | INFO | ai_insight.sql_generator | 🔍 Processing query: give me branch wise nfi
+2025-11-05 18:14:11,781 | INFO | ai_insight.sql_generator | ==================================================
+2025-11-05 18:14:11,783 | WARNING | ai_insight.sql_generator | ❌ Query is out-of-domain (Confidence: 60.0%)
