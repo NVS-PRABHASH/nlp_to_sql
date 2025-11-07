@@ -1,0 +1,1765 @@
+{
+  "metadata": {
+    "version": "3.3",
+    "description": "Comprehensive keyword to section mapping for all 40 prompt sections (32 static + 8 dynamic) - includes all dynamic section rules from prompt_template.json",
+    "created": "2025-10-22",
+  "updated": "2025-10-24",
+  "total_keywords": 190,
+    "total_sections": 40,
+    "static_sections": 32,
+    "dynamic_sections": 8,
+    "dynamic_section_list": [
+      "period_default_rule",
+      "never_use_date_arithmetic",
+      "period_mapping",
+      "financial_measures",
+      "trend_rules",
+      "yoy_growth_calculation",
+      "multi_month_queries",
+      "important_clarification"
+    ],
+    "note": "financial_measures is now dynamic. Vector retrieval with threshold=0.05 optimized for this corpus size."
+  },
+  "quarter_detection": {
+    "quarter_aliases": {
+      "CURRENT": ["current quarter", "this quarter", "present quarter", "in this quarter"],
+      "LAST": ["last quarter", "previous quarter", "prior quarter", "quarter-end", "quarterend", "prev quarter"],
+      "Q1": ["q1", "q 1", "1st","first", "q-1", "quarter 1", "1st quarter", "first quarter", "quarter one", "jan to mar", "jan-mar"],
+      "Q2": ["q2", "q 2", "2nd", "second", "q-2", "quarter 2", "2nd quarter", "second quarter", "quarter two", "apr to jun", "apr-jun"],
+      "Q3": ["q3", "q 3", "3rd", "third", "q-3", "quarter 3", "3rd quarter", "third quarter", "quarter three", "jul to sep", "jul-sep"],
+      "Q4": ["q4", "q 4", "4th", "fourth", "q-4", "quarter 4", "4th quarter", "fourth quarter", "quarter four", "oct to dec", "oct-dec"]
+    },
+    "py_hints": ["previous year", "last year", "py ", "py-", "py_", "prior year", "py"]
+  },
+  "keywords_and_rules": [
+    {
+      "keyword": "country",
+      "aliases": ["kenya"],
+      "section": "core_dimensions",
+      "priority": 10,
+      "tags": ["country", "core"],
+      "rule": "COUNTRY: VARCHAR2(3) - Country code where the legal entity operates"
+    },
+    {
+      "keyword": "country",
+      "aliases": ["kenya"],
+      "section": "core_dimensions",
+      "priority": 10,
+      "tags": ["country", "core","LE_BOOK"],
+      "rule": "LE_BOOK: VARCHAR2(10) - Legal entity identifier"
+    },
+    {
+      "keyword": "country",
+      "aliases": ["kenya","LEB","entity"],
+      "section": "core_dimensions",
+      "priority": 10,
+      "tags": ["country", "core","LEB_DESCRIPTION"],
+      "rule": "LEB_DESCRIPTION: VARCHAR2(255) - Legal entity / country description"
+    },
+    {
+      "keyword": "DATE",
+      "aliases": ["date"],
+      "section": "core_dimensions",
+      "priority": 10,
+      "tags": ["date", "core","BUSINESS_DATE"],
+      "rule": "BUSINESS_DATE: DATE - The date on which the dimensions and measures are reported"
+    },
+    {
+      "keyword": "contract",
+      "aliases": ["id","contract_id","account","account id","identifier"],
+      "section": "account_dimensions",
+      "priority": 10,
+      "tags": ["contract", "identifier","contract_id"],
+      "rule": "CONTRACT_ID: VARCHAR2(50) - Account or Contract identifier"
+    },
+    {
+      "keyword": "contract",
+      "aliases": ["id","contract_id","identifier"],
+      "section": "account_dimensions",
+      "priority": 10,
+      "tags": ["contract", "identifier","contract_id"],
+      "rule": "SOURCE_ID: VARCHAR2(50) - Original banking system identifier"
+    },
+    {
+      "keyword": "branch",
+      "aliases": ["branch_id","branch code"],
+      "section": "account_dimensions",
+      "priority": 10,
+      "tags": ["branch", "identifier","branch_id"],
+      "rule": "VISION_OUC: VARCHAR2(10) - Branch/Department/Profit Center code"
+    },
+    {
+      "keyword": "branch",
+      "aliases": ["branch_desc","branch description","ouc desc","ouc description"],
+      "section": "account_dimensions",
+      "priority": 10,
+      "tags": ["branch", "identifier","branch_description"],
+      "rule": "OUC_DESCRIPTION: VARCHAR2(255) - Branch/Department description"
+    },
+    {
+      "keyword": "branch",
+      "aliases": ["id","branch_id","identifier"],
+      "section": "account_dimensions",
+      "priority": 10,
+      "tags": ["branch", "identifier","branch_id"],
+      "rule": "ORIGINAL_OUC: VARCHAR2(10) - Branch code where account is maintained"
+    },
+    {
+      "keyword": "branch",
+      "aliases": ["id","branch_id","identifier"],
+      "section": "account_dimensions",
+      "priority": 10,
+      "tags": ["branch", "identifier","branch_id"],
+      "rule": "ORIGINAL_OUC_DESC: VARCHAR2(255) - Branch description"
+    },
+    {
+      "keyword": "vision_sbu",
+      "aliases": ["vision","sbu","segment"],
+      "section": "account_dimensions",
+      "priority": 10,
+      "tags": ["vision_sbu", "business_code","sbu_id"],
+      "rule": "VISION_SBU: VARCHAR2(10) - Strategic Business Unit code"
+    },
+    {
+      "keyword": "sbu",
+      "aliases": ["sbu_description","segment"],
+      "section": "account_dimensions",
+      "priority": 10,
+      "tags": ["sbu", "identifier","sbu_id"],
+      "rule": "SBU_DESCRIPTION: VARCHAR2(255) - SBU description"
+    },{
+      "keyword": "region",
+      "aliases": ["ouc_level_03","region_description","region_wise"],
+      "section": "account_dimensions",
+      "priority": 10,
+      "tags": ["region", "region_wise"],
+      "rule": "OUC_LEVEL_03_DESCRIPTION: VARCHAR2(255) - Region description"
+    },
+    {
+      "keyword": "account_officer_id",
+      "aliases": ["account_officer","officer","identifier","relationship","relation_ship","relationship_manager","relationship_manager_code"],
+      "section": "account_dimensions",
+      "priority": 10,
+      "tags": ["account_officer", "identifier","officer_id"],
+      "rule": "ACCOUNT_OFFICER: VARCHAR2(10) - Relationship Manager code"
+    },
+    {
+      "keyword": "name",
+      "aliases": ["account_officer","officer","identifier","relationship","relation_ship","relationship_manager","relationship_manager_name"],
+      "section": "account_dimensions",
+      "priority": 10,
+      "tags": ["account_officer", "identifier","name"],
+      "rule": "AO_NAME: VARCHAR2(255) - Relationship Manager name"
+    },
+    {
+      "keyword": "customer",
+      "aliases": ["bank", "product","customer", "customers"],
+      "section": "customer_dimensions",
+      "priority": 10,
+      "tags": ["customer", "product"],
+      "rule": "CUSTOMER_ID: VARCHAR2(20) - Unique customer identifier assigned by the bank"
+    },
+    {
+      "keyword": "customer",
+      "aliases": ["bank", "product","customer", "customers"],
+      "section": "customer_dimensions",
+      "priority": 10,
+      "tags": ["customer", "product"],
+      "rule": "CUSTOMER_NAME: VARCHAR2(255) - Customer's legal or registered name"
+    },
+    {
+      "keyword": "customer",
+      "aliases": ["bank", "product","customer", "customers"],
+      "section": "customer_dimensions",
+      "priority": 10,
+      "tags": ["customer", "product"],
+      "rule": "GLOBAL_CUSTOMER_ID: VARCHAR2(30) - Global customer identifier across different entities"
+    },
+	{
+      "keyword": "customer",
+      "aliases": ["bank", "product","customer", "customers"],
+      "section": "customer_dimensions",
+      "priority": 10,
+      "tags": ["customer", "product"],
+      "rule": "PRIMARY_CID: VARCHAR2(20) - Primary Customer ID in hierarchy (Parent of Customer ID)"
+    },
+    {
+      "keyword": "customer",
+      "aliases": ["bank", "product","customer", "customers"],
+      "section": "customer_dimensions",
+      "priority": 10,
+      "tags": ["customer", "product"],
+      "rule": "PARENT_CID: VARCHAR2(20) - Parent Customer ID in corporate hierarchy"
+    },
+    {
+      "keyword": "customer",
+      "aliases": ["bank", "product","customer", "customers"],
+      "section": "customer_dimensions",
+      "priority": 10,
+      "tags": ["customer", "product"],
+      "rule": "ULTIMATE_PARENT: VARCHAR2(20) - Top-level parent in customer hierarchy"
+    },
+	{
+      "keyword": "customer",
+      "aliases": ["bank", "product","customer", "customers"],
+      "section": "customer_dimensions",
+      "priority": 10,
+      "tags": ["customer", "product"],
+      "rule": "CB_NATIONALITY: VARCHAR2(50) - Customer nationality (ISO country code)"
+    },
+    {
+      "keyword": "customer",
+      "aliases": ["bank", "product","customer","male","female", "customers", "lady","woman","women", "men", "gent", "gender"],
+      "section": "customer_dimensions",
+      "priority": 10,
+      "tags": ["customer", "product"],
+      "rule": "CUSTOMER_SEX: VARCHAR2(1) - Customer Gender (M/F/U)"
+    },
+    {
+      "keyword": "customer",
+      "aliases": ["bank", "product","customer", "customers"],
+      "section": "customer_dimensions",
+      "priority": 10,
+      "tags": ["customer", "product"],
+      "rule": "CB_ECONOMIC_ACT_CODE: VARCHAR2(10) - Economic activity code (e.g., SIC/NAICS)"
+    },
+	{
+      "keyword": "customer",
+      "aliases": ["bank", "product","customer", "customers"],
+      "section": "customer_dimensions",
+      "priority": 10,
+      "tags": ["customer", "product"],
+      "rule": "CB_ECONOMIC_ACT_CODE_DESC: VARCHAR2(255) - Description of economic activity"
+    },
+    {
+      "keyword": "customer",
+      "aliases": ["bank", "product","customer", "customers"],
+      "section": "customer_dimensions",
+      "priority": 10,
+      "tags": ["customer", "product"],
+      "rule": "CB_MAJOR_PARTY_INDICATOR: VARCHAR2(1) - Flag if customer is a major shareholder (Y/N)"
+    },
+    {
+      "keyword": "customer",
+      "aliases": ["bank", "product","customer", "customers"],
+      "section": "customer_dimensions",
+      "priority": 10,
+      "tags": ["customer", "product"],
+      "rule": "RELATED_PARTY: VARCHAR2(1) - Flag if customer is a related party (Y/N)"
+    },
+	{
+      "keyword": "customer",
+      "aliases": ["bank", "product","customer", "customers"],
+      "section": "customer_dimensions",
+      "priority": 10,
+      "tags": ["customer", "product"],
+      "rule": "OBLIGOR_RISK_RATING: VARCHAR2(10) - Credit risk rating of the borrower"
+    },
+    {
+      "keyword": "customer",
+      "aliases": ["bank", "product","customer", "customers"],
+      "section": "customer_dimensions",
+      "priority": 10,
+      "tags": ["customer", "product"],
+      "rule": "CREDIT_CLASSIFICATION: VARCHAR2(50) - Credit classification category"
+    },
+    {
+      "keyword": "customer",
+      "aliases": ["bank", "product","customer", "customers"],
+      "section": "customer_dimensions",
+      "priority": 10,
+      "tags": ["customer", "product"],
+      "rule": "EXTERNAL_RISK_RATING: VARCHAR2(10) - External credit rating from agencies"
+    },
+	{
+      "keyword": "customer",
+      "aliases": ["bank", "product","customer", "customers"],
+      "section": "customer_dimensions",
+      "priority": 10,
+      "tags": ["customer", "product"],
+      "rule": "SECTOR_CODE: VARCHAR2(10) - Industry sector code"
+    },
+    {
+      "keyword": "customer",
+      "aliases": ["bank", "product","customer", "customers"],
+      "section": "customer_dimensions",
+      "priority": 10,
+      "tags": ["customer", "product"],
+      "rule": "SUB_SECTOR_CODE: VARCHAR2(10) - Industry sub-sector code"
+    },
+
+    {
+      "keyword": "outstanding balance",
+      "aliases": ["outstanding", "balance", "eop_balance"],
+      "section": "bal_type_selection_rules",
+      "priority": 10,
+      "tags": ["balance_type", "measure"],
+      "rule": "Use BAL_TYPE = 1 (End of Period). Represents balance at point in time"
+    },
+    {
+      "keyword": "balance",
+      "aliases": ["bal", "outstanding", "account_balance"],
+      "section": "bal_type_selection_rules",
+      "priority": 8,
+      "tags": ["balance_type"],
+      "rule": "Default to BAL_TYPE = 1 for balance sheet items unless measure specifies otherwise"
+    },
+    {
+      "keyword": "average",
+      "aliases": ["avg", "mean", "average_balance"],
+      "section": "bal_type_selection_rules",
+      "priority": 9,
+      "tags": ["aggregation", "balance_type"],
+      "rule": "Use BAL_TYPE = 2 with SUM() function (NEVER use AVG function). Always use SUM with BAL_TYPE = 2"
+    },
+    {
+      "keyword": "business_day",
+      "aliases": ["day", "days", "business_day", "eod", "daily_closing", "previous_day", "days_ago", "days_back"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "daily", "closing_balance"],
+      "rule": "Daily Balances : "
+    },
+	  {
+      "keyword": "business_day",
+      "aliases": ["business_day", "eod", "daily_closing","today_balance","today"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "daily", "closing_balance"],
+      "rule": "- BUSINESS_DAY: Actual closing balance as of business date"
+    },
+	  {
+      "keyword": "previous_day",
+      "aliases": ["previous_days","PREVIOUS_DAY", "prior_business day","last day", "yesterday", "yesterday_balance", "the_day_before"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "daily", "prior"],
+      "rule": "- PREVIOUS_DAY: Actual closing balance as of previous business day"
+    },
+	  {
+      "keyword": "prev_day",
+      "aliases": ["previous_day", "three_days_ago", "3_days_back", "days_ago", "days_back", "days_before", "PREV_DAY_3", "PREV_DAY_4", "PREV_DAY_5", "PREV_DAY_6", "PREV_DAY_7" ],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "daily", "history"],
+      "rule": "- PREV_DAY_3 through PREV_DAY_7: Closing balances 3-7 days ago"
+    },
+	  {
+      "keyword": "mtd",
+      "aliases": ["this month","current month","month_to_date", "MTD", "monthly_aggregate", "mtd", "this_month_to_today", "monthly"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "period_aggregate", "monthly", "present month"],
+      "rule": "- MTD: Month-to-date balance (1st of the month to current date)"
+    },
+	  {
+      "keyword": "wtd",
+      "aliases": ["week_to_date", "WTD", "weekly", "this_week", "week", "past_7_days"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "period_aggregate", "weekly"],
+      "rule": "- WTD: Use WTD column for week-to-date balance aggregation"
+    },
+  	{
+      "keyword": "ytd",
+      "aliases": ["year_to_date", "YTD", "yearly_aggregate", "this_year"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "period_aggregate", "yearly"],
+      "rule": "- YTD: Year-to-date balance (Jan 1st to current date)"
+    },
+  	{
+      "keyword": "current_month",
+      "aliases": ["current month", "this month","MTD", "month to date", "present month"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "monthly", "current"],
+      "rule": "- MTD: Current month's closing balance"
+    },
+    {
+      "keyword": "last month",
+      "aliases": ["prior month", "last month", "previous_month_balance", "last_month_data", "1_months_back"],
+      "section": "financial_measures",
+      "priority": 10,
+      "tags": ["measure", "monthly", "prior"],
+      "rule": "- CURRENT_MONTH : Column containing previous month data or last month (1 month ago)"
+    },
+    {
+      "keyword": "prior_2_month",
+      "aliases": ["two_months_back", "two_months_ago_balance", "2_months_back" , "two_months_before" , "2_months_before"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "monthly", "history"],
+      "rule": "- PRIOR_2_MONTH : Column containing data 2 months ago"
+    },
+    {
+      "keyword": "prior_3_month",
+      "aliases": ["prior_3_month", "three_months_ago_balance", "3_months_back"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "monthly", "history"],
+      "rule": "- PRIOR_3_MONTH : Column containing data 3 month ago"
+    },
+    {
+      "keyword": "prior 4 month",
+      "aliases": ["prior 4 month", "four months ago balance", "4 months back"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "monthly", "history"],
+      "rule": "- PRIOR_4_MONTH : Column containing data 4 month ago"
+    },
+    {
+      "keyword": "prior 5 month",
+      "aliases": ["prior 5 month", "five months ago balance", "5 months back"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "monthly", "history"],
+      "rule": "- PRIOR_5_MONTH : Column containing data 5 month ago"
+    },
+    {
+      "keyword": "prior_6_month",
+      "aliases": ["prior_6_month", "six_months_ago_balance", "6_months_back"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "monthly", "history"],
+      "rule": "- PRIOR_6_MONTH : Column containing data 6 month ago"
+    },
+  	{
+      "keyword": "prior_7_month",
+      "aliases": ["prior_7_month", "seven_months_ago_balance", "7_months_back"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "monthly", "history"],
+      "rule": "- PRIOR_7_MONTH : Column containing data 7 month ago"
+    },
+  	{
+      "keyword": "prior_8_month",
+      "aliases": ["prior_8_month", "eight_months_ago_balance", "8_months_back"],
+      "section": "financial_measures",
+      "priority": 8,
+      "tags": ["measure", "monthly", "history"],
+      "rule": "- PRIOR_8_MONTH : Column containing data 8 month ago"
+    },
+  	{
+      "keyword": "prior_9_month",
+      "aliases": ["prior_9_month", "nine_months_ago_balance", "9_months_back"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "monthly", "history"],
+      "rule": "- PRIOR_9_MONTH : Column containing data 9 month ago"
+    },
+	  {
+      "keyword": "prior_10_month",
+      "aliases": ["prior_10_month", "ten_months_ago_balance", "10_months_back"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "monthly", "history"],
+      "rule": "- PRIOR_10_MONTH : Column containing data 10 month ago"
+    },
+	  {
+      "keyword": "prior_11_month",
+      "aliases": ["prior_11_month", "eleven_months_ago_balance", "11_months_back"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "monthly", "history"],
+      "rule": "- PRIOR_11_MONTH : Column containing data 11 month ago"
+    },
+	  {
+      "keyword": "months",
+      "aliases": ["last_3_month", "last three months", "last_3_months", "past_3_months", "previous_3_months"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "monthly", "history", "note"],
+      "rule": "- NOTE: HERE last 3 months means (CURRENT_MONTH, PRIOR_MONTH, PRIOR_2_MONTH)."
+    },
+  	{
+      "keyword": "months",
+      "aliases": ["last_6_month", "last six months", "last_6_months", "past_6_months", "previous_6_months"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "monthly", "history", "note"],
+      "rule": "- NOTE: Here last 6 months means (CURRENT_MONTH, PRIOR_MONTH, PRIOR_2_MONTH, PRIOR_3_MONTH, PRIOR_4_MONTH, PRIOR_5_MONTH)."
+    },
+    {
+      "keyword": "months",
+      "aliases": ["last_12_month", "last twelve months", "last_12_months", "past_12_months", "previous_12_months"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "monthly", "history", "note"],
+      "rule": "- NOTE: Here last 12 months means (CURRENT_MONTH, PRIOR_MONTH, PRIOR_2_MONTH, PRIOR_3_MONTH, PRIOR_4_MONTH, PRIOR_5_MONTH, PRIOR_6_MONTH, PRIOR_7_MONTH, PRIOR_8_MONTH, PRIOR_9_MONTH, PRIOR_10_MONTH, PRIOR_11_MONTH)."
+    },
+	  {
+      "keyword": "py_mtd",
+      "aliases": ["PY_MTD", "previous_year_mtd", "last_year_month_to_date"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "prior_year", "comparison"],
+      "rule": "- PY_MTD: Previous year month-to-date balance"
+    },
+    {
+      "keyword": "growth",
+      "aliases": ["increase", "change", "difference", "compare", "vs last month", "vs last year", "variance", "delta", "improvement", "decrease", "drop"],
+      "section": "comparison_growth_logic",
+      "priority": 9,
+      "tags": ["measure", "prior_year", "comparison"],
+      "rule": "Rules for handling comparison, growth, and variance analysis queries. TRIGGER KEYWORDS: growth, increase, change, difference, compare, vs last month, vs last year, variance, delta, improvement, decrease, drop"
+    },
+    {
+      "keyword": "growth",
+      "aliases": ["month","monthly","increase", "change", "difference", "compare", "vs last month", "vs last year", "variance", "delta", "improvement", "decrease", "drop"],
+      "section": "comparison_growth_logic",
+      "priority": 9,
+      "tags": ["measure", "prior_year", "comparison"],
+      "rule": "Determine Comparison Period Dynamically : If the user query mentions 'month' or refers to a monthly trend → Compare CURRENT_MONTH vs PRIOR_MONTH"
+    },
+    {
+      "keyword": "growth",
+      "aliases": ["year","YTD","year_to_date","PREV_YEAR_YTD","increase", "change", "difference", "compare", "vs last month", "vs last year", "variance", "delta", "improvement", "decrease", "drop"],
+      "section": "comparison_growth_logic",
+      "priority": 9,
+      "tags": ["measure", "prior_year", "comparison"],
+      "rule": "Determine Comparison Period Dynamically : If the user query mentions 'year' or YTD (Year-to-Date)→ Compare BUSINESS_DAY vs PREV_YEAR_YTD"
+    },
+    {
+      "keyword": "growth",
+      "aliases": ["percentage_growth","increase","decrease rate","increase rate", "change", "difference", "compare", "vs last month", "vs last year", "variance", "delta", "improvement", "decrease", "drop"],
+      "section": "comparison_growth_logic",
+      "priority": 9,
+      "tags": ["measure", "prior_year", "comparison"],
+      "rule": "DEFINE COMPARISON METRICS : 1. Percentage Growth / Increase / Decrease Rate. and 2. Absolute Difference / Volume Change."
+    },
+    {
+      "keyword": "growth",
+      "aliases": ["increase","percentage change","increase_percentage","decrease_percentage", "change", "difference", "compare", "vs last month", "vs last year", "variance", "delta", "improvement", "decrease", "drop"],
+      "section": "comparison_growth_logic",
+      "priority": 9,
+      "tags": ["measure", "prior_year", "comparison"],
+      "rule": "1. Percentage Growth / Increase / Decrease Rate : ((Current_Value - Previous_Value) / Previous_Value) * 100 ,Used when query includes words like 'growth rate', 'percentage change', 'increase %', 'growth %'"
+    },
+    {
+      "keyword": "growth",
+      "aliases": ["volume_change","increase", "change", "difference", "compare", "vs last month", "vs last year", "variance", "delta", "improvement", "decrease", "drop"],
+      "section": "comparison_growth_logic",
+      "priority": 9,
+      "tags": ["measure", "prior_year", "comparison"],
+      "rule": "Absolute Difference / Volume Change : (Current_Value - Previous_Value) , Used when query includes words like 'difference', 'increase amount', 'growth volume', 'change in', 'delta', 'variance."
+    },
+    {
+      "keyword": "growth",
+      "aliases": ["percentage","ratio","growth_rate","volume_change","increase", "change", "difference", "compare", "vs last month", "vs last year", "variance", "delta", "improvement", "decrease", "drop"],
+      "section": "safe_division_rule",
+      "priority": 9,
+      "tags": ["growth", "percentage", "growth rate"],
+      "rule": "Prevent division by zero errors in ratio, percentage, and growth rate calculations. "
+    },
+    {
+      "keyword": "growth",
+      "aliases": ["percentage","ratio","growth_rate","volume_change","increase", "change", "difference", "compare", "vs last month", "vs last year", "variance", "delta", "improvement", "decrease", "drop"],
+      "section": "safe_division_rule",
+      "priority": 9,
+      "tags": ["growth", "percentage", "growth rate"],
+      "rule": "CRITICAL REQUIREMENT: Always use NULLIF in the denominator to prevent division by zero errors when calculating ratios, percentages, growth rates, or achievement rates."
+    },
+    {
+      "keyword": "growth",
+      "aliases": ["percentage","ratio","growth_rate","volume_change","increase", "change", "difference", "compare", "vs last month", "vs last year", "variance", "delta", "improvement", "decrease", "drop"],
+      "section": "safe_division_rule",
+      "priority": 9,
+      "tags": ["growth", "percentage", "growth rate"],
+      "rule": "EXAMPLES : For MTD achievement : ROUND((SUM(MTD) / NULLIF(SUM(MTD_TARGET), 0)) * 100, 2) AS MTD_ACH_PCT"
+    },
+    {
+      "keyword": "growth",
+      "aliases": ["percentage","ratio","growth_rate","volume_change","increase", "change", "difference", "compare", "vs last month", "vs last year", "variance", "delta", "improvement", "decrease", "drop"],
+      "section": "safe_division_rule",
+      "priority": 9,
+      "tags": ["growth", "percentage", "growth rate"],
+      "rule": "EXAMPLES : For growth comparison : ROUND(((SUM(CURRENT_MONTH) - SUM(PRIOR_MONTH)) / NULLIF(SUM(PRIOR_MONTH), 0)) * 100, 2) AS GROWTH_PCT"
+    },
+    {
+      "keyword": "growth",
+      "aliases": ["percentage","ratio","growth_rate","volume_change","increase", "change", "difference", "compare", "vs last month", "vs last year", "variance", "delta", "improvement", "decrease", "drop"],
+      "section": "safe_division_rule",
+      "priority": 9,
+      "tags": ["growth", "percentage", "growth rate"],
+      "rule": "EXAMPLES : For liquidity ratio : CASE WHEN ROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_SHORT_TERM_LIABILITIES#) THEN CURRENT_MONTH ELSE 0 END), 2) = 0 THEN NULL ELSE ROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_LIQUID_ASSETS#) THEN CURRENT_MONTH ELSE 0 END) / SUM(CASE WHEN MRL_LINE IN (#GROUP_SHORT_TERM_LIABILITIES#) THEN CURRENT_MONTH ELSE 0 END),4) END AS liquidity_ratio"
+    },
+    {
+      "keyword": "growth",
+      "aliases": ["percentage","ratio","growth_rate","volume_change","increase", "change", "difference", "compare", "vs last month", "vs last year", "variance", "delta", "improvement", "decrease", "drop"],
+      "section": "safe_division_rule",
+      "priority": 9,
+      "tags": ["growth", "percentage", "growth rate"],
+      "rule": "BEST PRACTICE : Always follow this pattern when performing division operations to ensure query stability and prevent runtime errors."
+    },
+  	{
+      "keyword": "py_current_month",
+      "aliases": ["PY_CURRENT_MONTH", "previous_year_same_month", "last_year_this_month"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "prior_year", "comparison"],
+      "rule": "- PY_CURRENT_MONTH: Previous year's same month balance"
+    },
+    {
+      "keyword": "py_prior_month",
+      "aliases": ["PY_PRIOR_MONTH", "previous_year_prior_month"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "prior_year", "comparison"],
+      "rule": "- PY_PRIOR_MONTH through PY_PRIOR_5_MONTH: Previous year's monthly balances"
+    },
+	  {
+      "keyword": "prev_year_ytd",
+      "aliases": ["PREV_YEAR_YTD", "previous_year_ytd", "last_year_ytd","last year","previous year","prior year"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "prior_year", "comparison", "critical"],
+      "rule": "- PREV_YEAR_YTD: Previous year's year-to-date balance"
+    },
+  	{
+      "keyword": "py_sp_mtd",
+      "aliases": ["PY_SP_MTD", "previous_year_same_period_mtd"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "prior_year", "comparison"],
+      "rule": "- PY_SP_MTD: Previous year same period month-to-date"
+    },
+  	{
+      "keyword": "py_sp_ytd",
+      "aliases": ["PY_SP_YTD", "previous_year_same_period_ytd", "same period last year","same period","last_year_same_period"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "prior_year", "comparison"],
+      "rule": "- PY_SP_YTD: Previous year same period year-to-date"
+    },
+  	{
+      "keyword": "previous_year",
+      "aliases": ["PREV_YEAR_YTD","last year", "previous_year_ytd", "last_year_ytd", "prior_year", "previous_year_yet_to_date"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "prior_year", "comparison"],
+      "rule": "NOTE: USE PREV_YEAR_YTD for 'previous year' / 'last year'"
+    },
+    {
+      "keyword": "mtd_target",
+      "aliases": ["MTD_TARGET", "month_target", "mtd_budget"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "target", "budget"],
+      "rule": "- MTD_TARGET: Budget/Target closing balance for current month"
+    },
+    {
+      "keyword": "ytd_target",
+      "aliases": ["YTD_TARGET","target", "year_target", "ytd_budget"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "target", "budget"],
+      "rule": "- YTD_TARGET: Budget/Target year-to-date balance"
+    },
+    {
+      "keyword": "days_past_due",
+      "aliases": ["DAYS_PAST_DUE", "dpd_days", "overdue_days"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "credit_risk", "overdue"],
+      "rule": "- DAYS_PAST_DUE: Number of days payment is overdue"
+    },
+    {
+      "keyword": "dpd_amount",
+      "aliases": ["DPD_AMOUNT", "past_due_amount", "overdue_amount"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "credit_risk", "overdue"],
+      "rule": "- DPD_AMOUNT: Total amount past due"
+    },
+    {
+      "keyword": "dpd_bucket",
+      "aliases": ["DPD_BUCKET", "dpd_classification", "overdue_bucket"],
+      "section": "financial_measures",
+      "priority": 9,
+      "tags": ["measure", "credit_risk", "classification"],
+      "rule": "- DPD_BUCKET: Classification (Performing, NPL, Sub-Standard, etc.)"
+    },
+    {
+      "keyword": "default_period",
+      "aliases": ["no_period", "unspecified_period", "balance"],
+      "section": "period_default_rule",
+      "priority": 10,
+      "tags": ["period", "default", "business_day"],
+      "rule": "If NO specific period mentioned → ALWAYS use BUSINESS_DAY column"
+    },
+    {
+      "keyword": "today",
+      "aliases": ["business_day","current_date","current_day", "today_balance", "eod", "end_of_day", "end_of_today"],
+      "section": "period_mapping",
+      "priority": 10,
+      "tags": ["time", "column", "current"],
+      "rule": "\"today\" / \"current date\" / no period → BUSINESS_DAY"
+    },
+    {
+      "keyword": "yesterday",
+      "aliases": ["previous_day", "yesterday_balance", "prior_day", "prev_day","the_day_before","last_day"],
+      "section": "period_mapping",
+      "priority": 10,
+      "tags": ["time", "column", "prior"],
+      "rule": "\"yesterday\" / \"previous day\" → PREVIOUS_DAY [IMPORTANT]"
+    },
+    {
+      "keyword": "days_ago",
+      "aliases": ["days_ago", "prior_days", "previous_days", "days_back", "days_before"],
+      "section": "period_mapping",
+      "priority": 10,
+      "tags": ["time", "column", "prior"],
+      "rule": "\"3 days ago\" through \"7 days ago\" → PREV_DAY_3 through PREV_DAY_7"
+    },
+    {
+      "keyword": "WTD",
+      "aliases": ["last_week", "WTD", "week_to_date","weekly","week_to_today","last_7_days"],
+      "section": "period_mapping",
+      "priority": 10,
+      "tags": ["time", "column"],
+      "rule": "\"week-to-date\" / \"WTD\" / \"weekly\" / \"last week\" → WTD"
+    },
+    {
+      "keyword": "YTD",
+      "aliases": ["ytd", "year_to_date", "year_to_this_date","year_to_today","annual","yearly"],
+      "section": "period_mapping",
+      "priority": 10,
+      "tags": ["time", "column", "annual"],
+      "rule": "\"year-to-date\" / \"YTD\" / \"yearly\" / \"this year\" → YTD"
+    },
+    
+    {
+      "keyword": "MTD",
+      "aliases": ["this month","current month", "month_end","current_month", "given_month","monthly", "mtd", "month_to_date","month_to_today"],
+      "section": "period_mapping",
+      "priority": 9,
+      "tags": ["time", "column", "current"],
+      "rule": "\"current month\" / \"this month\" / \"given month\" / \"month-end\" / \"month-to-date\" / \"mtd\" → MTD"
+    },
+    {
+      "keyword": "previous month",
+      "aliases": ["last month", "prior month","reporting month","last month-end", "one month ago","prior month"],
+      "section": "period_mapping",
+      "priority": 10,
+      "tags": ["time", "column"],
+      "rule": "\"previous month\" / \"last month\" → CURRENT_MONTH"
+    },
+    {
+      "keyword": "2_months_ago",
+      "aliases": ["two_months_ago", "prior_2_month"],
+      "section": "period_mapping",
+      "priority": 9,
+      "tags": ["time", "column", "history"],
+      "rule": "Use PRIOR_2_MONTH column. Create separate column for multi-month queries"
+    },
+    {
+      "keyword": "3_months_ago",
+      "aliases": ["three_months_ago", "prior_3_month"],
+      "section": "period_mapping",
+      "priority": 8,
+      "tags": ["time", "column", "history"],
+      "rule": "Use PRIOR_3_MONTH column"
+    },
+    {
+      "keyword": "previous year",
+      "aliases": ["last year", "prior year", "py","before year","prev year"],
+      "section": "period_mapping",
+      "priority": 10,
+      "tags": ["time", "yoy", "comparison"],
+      "rule": "\"previous year\" / \"last year\" → PREV_YEAR_YTD"
+    },
+    {
+      "keyword":"same period last year",
+      "aliases": ["same_period_last_year", "last year same period","same period"],
+      "section": "period_mapping",
+      "priority": 10,
+      "tags": ["time", "yoy", "comparison"],
+      "rule": "\"same period last year\" / \"last year same period\" → PY_SP_YTD"
+    },
+    {
+      "keyword": "py_sp_ytd",
+      "aliases": ["previous_year_same_period","same period", "PY_SP_YTD","last year same period", "previous_year_same_date"],
+      "section": "period_mapping",
+      "priority": 9,
+      "tags": ["time", "column", "yoy"],
+      "rule": "Previous Year Same Period YTD. Use ONLY for explicit 'same period' comparisons"
+    },
+    {
+      "keyword": "previous_year_current_month",
+      "aliases": ["previous_year_this_month", "py_current_month"],
+      "section": "period_mapping",
+      "priority": 9,
+      "tags": ["time", "column", "yoy"],
+      "rule": "\"previous year current month\" → PY_CURRENT_MONTH"
+    },
+    {
+      "keyword": "previous_year_current_month_note",
+      "aliases": ["previous_year_current_month", "previous_year_this_month", "py_current_month","last year", "prior year", "py","before year","prev year","previous year"],
+      "section": "period_mapping",
+      "priority": 9,
+      "tags": ["time", "column", "yoy"],
+      "rule": "NOTE: never use PY_SP_YTD for 'last year' or 'previous year'. Always use PREV_YEAR_YTD"
+    },
+    {
+      "keyword": "previous_year_month_to_date",
+      "aliases": ["previous_year_mtd", "PY_MTD"],
+      "section": "period_mapping",
+      "priority": 9,
+      "tags": ["time", "column", "yoy"],
+      "rule": "\"previous year MTD\" → PY_MTD"
+    },
+    {
+      "keyword": "days_past_due",
+      "aliases": ["days_overdue", "past_due_days","dpd"],
+      "section": "period_mapping",
+      "priority": 9,
+      "tags": ["time", "column", "yoy"],
+      "rule": "\"days past due\" → DAYS_PAST_DUE and DPD_AMOUNT"
+    },
+    {
+      "keyword": "weekly",
+      "aliases": ["week", "by_week"],
+      "section": "period_mapping",
+      "priority": 8,
+      "tags": ["time", "period"],
+      "rule": "Use WTD column for week-to-date"
+    },
+    {
+      "keyword": "yearly",
+      "aliases": ["year", "annual", "by_year"],
+      "section": "period_mapping",
+      "priority": 8,
+      "tags": ["time", "period"],
+      "rule": "Use YTD for current year or PREV_YEAR_YTD for prior year"
+    },
+    {
+      "keyword": "prior 2 month",
+      "aliases": ["prior_2_month", "two_months_back"],
+      "section": "period_mapping",
+      "priority": 8,
+      "tags": ["time", "column"],
+      "rule": "Use PRIOR_2_MONTH column"
+    },
+    {
+      "keyword": "prior 3 month",
+      "aliases": ["prior_3_month", "three_months_back"],
+      "section": "period_mapping",
+      "priority": 8,
+      "tags": ["time", "column"],
+      "rule": "Use PRIOR_3_MONTH column"
+    },
+    {
+      "keyword": "prior 6 month",
+      "aliases": ["prior_6_month", "six_months_back"],
+      "section": "period_mapping",
+      "priority": 8,
+      "tags": ["time", "column"],
+      "rule": "Use PRIOR_6_MONTH column"
+    },
+    {
+      "keyword": "prior 11 month",
+      "aliases": ["prior_11_month"],
+      "section": "period_mapping",
+      "priority": 8,
+      "tags": ["time", "column"],
+      "rule": "Use PRIOR_11_MONTH column"
+    },
+    {
+      "keyword": "last_3_months",
+      "aliases": ["last_3_months", "three_month_period"],
+      "section": "multi_month_queries",
+      "priority": 9,
+      "tags": ["time", "multi_month"],
+      "rule": "Create 3 separate columns: SUM(PRIOR_2_MONTH), SUM(PRIOR_MONTH), SUM(CURRENT_MONTH). Start from CURRENT_MONTH and go back NOTE: last n months should be calculated from current month [IMPORTANT]"
+    },
+    {
+      "keyword": "last_6_months",
+      "aliases": ["last_6_months", "six_month_period"],
+      "section": "multi_month_queries",
+      "priority": 9,
+      "tags": ["time", "multi_month"],
+      "rule": "Create 6 separate columns: PRIOR_5_MONTH , SUM(PRIOR_4_MONTH) , SUM(PRIOR_3_MONTH) , SUM(PRIOR_2_MONTH) , SUM(PRIOR_MONTH) , SUM(CURRENT_MONTH). Include each month separately. NOTE: last n months should be calculated from current month [IMPORTANT]"
+    },
+    {
+      "keyword": "last_12_months",
+      "aliases": ["last_12_months", "twelve_month_period"],
+      "section": "multi_month_queries",
+      "priority": 9,
+      "tags": ["time", "multi_month"],
+      "rule": "Create 12 separate columns: PRIOR_11_MONTH , SUM(PRIOR_10_MONTH) , SUM(PRIOR_9_MONTH) , SUM(PRIOR_8_MONTH) , SUM(PRIOR_7_MONTH) , SUM(PRIOR_6_MONTH) , SUM(PRIOR_5_MONTH) , SUM(PRIOR_4_MONTH) , SUM(PRIOR_3_MONTH) , SUM(PRIOR_2_MONTH) , SUM(PRIOR_MONTH) , SUM(CURRENT_MONTH). Include each month separately. NOTE: last n months should be calculated from current month [IMPORTANT]"
+    },
+    {
+      "keyword": "year_over_year",
+      "aliases": ["yoy", "year_on_year", "YoY"],
+      "section": "yoy_growth_calculation",
+      "priority": 10,
+      "tags": ["time", "yoy", "comparison"],
+      "rule": "Always calculate using: YTD (current) vs PY_SP_YTD (previous year same period)"
+    },
+    {
+      "keyword": "yoy",
+      "aliases": ["year_over_year", "YoY"],
+      "section": "yoy_growth_calculation",
+      "priority": 9,
+      "tags": ["time", "yoy"],
+      "rule": "Year-over-year comparison"
+    },
+    {
+      "keyword": "net_income",
+      "aliases": ["net_profit"],
+      "section": "mrl_exclusion_rule",
+      "priority": 10,
+      "tags": ["measure", "pl", "critical"],
+      "rule": "Do NOT include MRL_LINE in SQL for these specific measures: net_income, net_profit"
+    },
+    {
+      "keyword": "net_income",
+      "aliases": ["net_profit"],
+      "section": "mrl_exclusion_rule",
+      "priority": 10,
+      "tags": ["measure", "pl", "critical"],
+      "rule": "For ALL other measures, always include: WHERE MRL_LINE IN (#MRL_LINES#)"
+    },
+    {
+      "keyword": "net_interest_income",
+      "aliases": ["nii", "NII", "net_interest_income"],
+      "section": "bal_type_selection_rules",
+      "priority": 9,
+      "tags": ["measure", "pl", "income"],
+      "rule": "Use BAL_TYPE = 3 (P&L measure)"
+    },
+    {
+      "keyword": "nii",
+      "aliases": ["net_interest_income", "NII"],
+      "section": "bal_type_selection_rules",
+      "priority": 9,
+      "tags": ["measure", "pl"],
+      "rule": "Use BAL_TYPE = 3"
+    },
+    {
+      "keyword": "net interest margin",
+      "aliases": ["nim", "NIM", "interest_margin"],
+      "section": "bal_type_selection_rules",
+      "priority": 9,
+      "tags": ["measure", "pl", "profitability"],
+      "rule": "Use BAL_TYPE IN (3,4). May include both P&L and FTP components"
+    },
+    {
+      "keyword": "nim",
+      "aliases": ["net_interest_margin", "NIM"],
+      "section": "bal_type_selection_rules",
+      "priority": 9,
+      "tags": ["measure", "pl"],
+      "rule": "Use BAL_TYPE IN (3,4)"
+    },
+    {
+      "keyword": "non funded income",
+      "aliases": ["nfi", "NFI", "non_funded_income"],
+      "section": "bal_type_selection_rules",
+      "priority": 9,
+      "tags": ["measure", "pl", "income"],
+      "rule": "Use BAL_TYPE = 3 (P&L measure)"
+    },
+    {
+      "keyword": "nfi",
+      "aliases": ["non_funded_income", "NFI"],
+      "section": "bal_type_selection_rules",
+      "priority": 9,
+      "tags": ["measure", "pl"],
+      "rule": "Use BAL_TYPE = 3"
+    },
+    {
+      "keyword": "revenue",
+      "aliases": ["total_revenue", "income", "earnings"],
+      "section": "bal_type_selection_rules",
+      "priority": 9,
+      "tags": ["measure", "pl"],
+      "rule": "Revenue items typically use BAL_TYPE = 3. For total revenue across all products, use CASE expressions for each category"
+    },
+    {
+      "keyword": "expense",
+      "aliases": ["expenses", "cost", "expenditure"],
+      "section": "bal_type_selection_rules",
+      "priority": 9,
+      "tags": ["measure", "pl"],
+      "rule": "Expense items use BAL_TYPE = 3"
+    },
+    {
+      "keyword": "interest payable",
+      "aliases": ["interest_payable", "interest_due"],
+      "section": "bal_type_selection_rules",
+      "priority": 8,
+      "tags": ["measure", "balance_sheet"],
+      "rule": "Use BAL_TYPE = 1 (balance sheet item)"
+    },
+    {
+      "keyword": "interest receivable",
+      "aliases": ["interest_receivable", "interest_earned"],
+      "section": "bal_type_selection_rules",
+      "priority": 8,
+      "tags": ["measure", "balance_sheet"],
+      "rule": "Use BAL_TYPE = 1 (balance sheet item)"
+    },
+    {
+      "keyword": "commission",
+      "aliases": ["commissions", "fee", "charges"],
+      "section": "bal_type_selection_rules",
+      "priority": 9,
+      "tags": ["measure", "pl", "income"],
+      "rule": "Commission income uses BAL_TYPE = 3"
+    },
+    {
+      "keyword": "fee",
+      "aliases": ["fees", "charges", "commission"],
+      "section": "bal_type_selection_rules",
+      "priority": 8,
+      "tags": ["measure", "pl"],
+      "rule": "Fee income uses BAL_TYPE = 3"
+    },
+    {
+      "keyword": "staff expenses",
+      "aliases": ["staff_cost", "employee_cost", "payroll"],
+      "section": "bal_type_selection_rules",
+      "priority": 8,
+      "tags": ["measure", "pl", "expense"],
+      "rule": "Staff expenses use BAL_TYPE = 3 (P&L)"
+    },
+    {
+      "keyword": "corporate tax",
+      "aliases": ["tax", "taxation", "corporate_tax"],
+      "section": "bal_type_selection_rules",
+      "priority": 8,
+      "tags": ["measure", "pl", "expense"],
+      "rule": "Tax expenses use BAL_TYPE = 3 (P&L)"
+    },
+    {
+      "keyword": "income",
+      "aliases": ["nii", "NII", "net_interest_income","net_income","net_profit", "nie", "net_interest_expense","income","expense","profit","loss"],
+      "section": "bal_type_selection_rules",
+      "priority": 9,
+      "tags": ["measure", "pl", "income"],
+      "rule": "Net interest income, interest income, interest payable, interest receivable, net income, net profit, net interest expense, income, expense, profit, loss uses BAL_TYPE = 3"
+    },
+    {
+      "keyword": "nim",
+      "aliases": ["net_interest_margin", "NIM", "interest_margin"],
+      "section": "bal_type_selection_rules",
+      "priority": 8,
+      "tags": ["measure", "pl"],
+      "rule": "Net interest margin uses BAL_TYPE = (3,4)"
+    },
+    {
+      "keyword": "lcy",
+      "aliases": ["local_currency", "local currency", "bcY"],
+      "section": "ccy_type_selection_rules",
+      "priority": 9,
+      "tags": ["currency", "filter"],
+      "rule": "Local Currency → use CCY_TYPE = 'BCY' (Book Currency)"
+    },
+    {
+      "keyword": "local currency",
+      "aliases": ["lcy", "local_currency"],
+      "section": "ccy_type_selection_rules",
+      "priority": 9,
+      "tags": ["currency", "filter"],
+      "rule": "Use CCY_TYPE = 'BCY'"
+    },
+    {
+      "keyword": "lcy_and_fcy",
+      "aliases": ["local_and_foreign_currency", "both_currencies", "lcy_&_fcy"],
+      "section": "case_multiple_currencies",
+      "priority": 9,
+      "tags": ["currency", "filter","multiple","case"],
+      "rule": "Use CASE on CCY_TYPE inside each measure or product expression."
+    },
+    {
+      "keyword": "lcy_and_fcy",
+      "aliases": ["local_and_foreign_currency", "both_currencies", "lcy_&_fcy"],
+      "section": "case_multiple_currencies",
+      "priority": 9,
+      "tags": ["currency", "filter","multiple","case"],
+      "rule": "Never assume columns named LCY or FCY exist."
+    },
+    {
+      "keyword": "lcy_and_fcy",
+      "aliases": ["local_and_foreign_currency", "both_currencies", "lcy_&_fcy"],
+      "section": "case_multiple_currencies",
+      "priority": 9,
+      "tags": ["currency", "filter","multiple","case"],
+      "rule": "Example : ROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_MORTGAGE#) AND CCY_TYPE = 'BCY' THEN <MEASURE_COLUMN> ELSE 0 END), 2) AS mortgage_lcy,ROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_MORTGAGE#) AND CCY_TYPE = 'FCY' THEN <MEASURE_COLUMN> ELSE 0 END), 2) AS mortgage_fcy"
+    },
+    {
+      "keyword": "fcy",
+      "aliases": ["foreign_currency", "foreign currency", "fx"],
+      "section": "ccy_type_selection_rules",
+      "priority": 9,
+      "tags": ["currency", "filter"],
+      "rule": "Foreign Currency → use CCY_TYPE = 'FCY'"
+    },
+    {
+      "keyword": "foreign currency",
+      "aliases": ["fcy", "foreign_currency", "fx"],
+      "section": "ccy_type_selection_rules",
+      "priority": 9,
+      "tags": ["currency", "filter"],
+      "rule": "Use CCY_TYPE = 'FCY'"
+    },
+    {
+      "keyword": "rcy",
+      "aliases": ["reporting_currency", "reporting currency"],
+      "section": "ccy_type_selection_rules",
+      "priority": 8,
+      "tags": ["currency", "filter"],
+      "rule": "Reporting Currency → use CCY_TYPE = 'RCY'"
+    },
+    {
+      "keyword": "corporate_&_retail",
+      "aliases": ["corporate_and_retail", "both_segments", "multi_segment", "retail_vs_corporate"],
+      "section": "case_multiple_sbus",
+      "priority": 10,
+      "tags": ["multiple", "sbu","case"],
+      "rule": "When the user mentions different SBUs, divisions, or business segments:"
+    },
+    {
+      "keyword": "corporate_&_retail",
+      "aliases": ["corporate_and_retail", "both_segments", "multi_segment", "retail_vs_corporate"],
+      "section": "case_multiple_sbus",
+      "priority": 10,
+      "tags": ["multiple", "sbu","case"],
+      "rule": "Use CASE based on SBU_DESCRIPTION (or equivalent column)."
+    },
+    {
+      "keyword": "corporate_&_retail",
+      "aliases": ["corporate_and_retail", "both_segments", "multi_segment", "retail_vs_corporate"],
+      "section": "case_multiple_sbus",
+      "priority": 10,
+      "tags": ["multiple", "sbu","case"],
+      "rule": "Example: ROUND(SUM(CASE WHEN UPPER(SBU_DESCRIPTION) LIKE UPPER('%RETAIL%') THEN <MEASURE_COLUMN> ELSE 0 END), 2) AS retail_value, ROUND(SUM(CASE WHEN UPPER(SBU_DESCRIPTION) LIKE UPPER('%CORPORATE%') THEN <MEASURE_COLUMN> ELSE 0 END), 2) AS corporate_value"
+    },
+    {
+      "keyword": "corporate_&_retail",
+      "aliases": ["corporate_and_retail", "both_segments", "multi_segment", "retail_vs_corporate"],
+      "section": "case_multiple_sbus",
+      "priority": 10,
+      "tags": ["multiple", "sbu","case"],
+      "rule": "Combine SBU CASEs with MRL or CCY_TYPE if multiple dimensions are requested:"
+    },
+    {
+      "keyword": "corporate_&_retail",
+      "aliases": ["corporate_and_retail", "both_segments", "multi_segment", "retail_vs_corporate"],
+      "section": "case_multiple_sbus",
+      "priority": 10,
+      "tags": ["multiple", "sbu","case"],
+      "rule": "ROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_LOANS#) AND CCY_TYPE = 'BCY' AND UPPER(SBU_DESCRIPTION) LIKE UPPER('%RETAIL%') THEN <MEASURE_COLUMN> ELSE 0 END), 2) AS retail_loans_lcy"
+    },
+    {
+      "keyword": "branch",
+      "aliases": ["branch_office", "office","branch","branch_wise"],
+      "section": "query_structure_rules",
+      "priority": 10,
+      "tags": ["dimension", "grouping"],
+      "rule": "Branch queries use OUC_DESCRIPTION in SELECT and GROUP BY (NOT VISION_OUC). Include both VISION_OUC and OUC_DESCRIPTION"
+    },
+    {
+      "keyword": "branch wise",
+      "aliases": ["by_branch", "per_branch","branch"],
+      "section": "query_structure_rules",
+      "priority": 9,
+      "tags": ["dimension", "grouping"],
+      "rule": "Include both VISION_OUC and OUC_DESCRIPTION in SELECT and GROUP BY"
+    },
+    {
+      "keyword": "segment",
+      "aliases": ["sbu", "business_segment", "segment","division"],
+      "section": "query_structure_rules",
+      "priority": 9,
+      "tags": ["dimension", "grouping"],
+      "rule": "Segment queries use SBU_DESCRIPTION in SELECT and GROUP BY (NOT VISION_SBU). Include both VISION_SBU and SBU_DESCRIPTION"
+    },
+    {
+      "keyword": "segment wise",
+      "aliases": ["by_segment", "per_segment", "sbu_wise"],
+      "section": "query_structure_rules",
+      "priority": 9,
+      "tags": ["dimension", "grouping"],
+      "rule": "Include both VISION_SBU and SBU_DESCRIPTION"
+    },
+    {
+      "keyword": "sector",
+      "aliases": ["sector_code", "industry", "sector_wise"],
+      "section": "query_structure_rules",
+      "priority": 8,
+      "tags": ["dimension", "grouping"],
+      "rule": "Sector Code wise queries use ONLY SECTOR_CODE (no description). Unique exception to normal dimension rule"
+    },
+    {
+      "keyword": "customer",
+      "aliases": ["customers", "client", "customer_wise"],
+      "section": "query_structure_rules",
+      "priority": 8,
+      "tags": ["dimension", "grouping"],
+      "rule": "Customer queries include CUSTOMER_ID and CUSTOMER_NAME in SELECT and GROUP BY"
+    },
+    {
+      "keyword": "account officer",
+      "aliases": ["ao", "rm", "relationship_manager"],
+      "section": "query_structure_rules",
+      "priority": 8,
+      "tags": ["dimension", "grouping"],
+      "rule": "Account Officer queries include ACCOUNT_OFFICER and AO_NAME in SELECT and GROUP BY"
+    },
+    {
+      "keyword": "rm",
+      "aliases": ["account_officer", "relationship_manager"],
+      "section": "query_structure_rules",
+      "priority": 8,
+      "tags": ["dimension", "grouping"],
+      "rule": "Relationship Manager queries use ACCOUNT_OFFICER and AO_NAME"
+    },
+    {
+      "keyword": "retail",
+      "aliases": ["retail_segment", "retail_customer"],
+      "section": "case_multiple_sbus",
+      "priority": 9,
+      "tags": ["segment", "filter"],
+      "rule": "Use CASE with UPPER(SBU_DESCRIPTION) LIKE UPPER('%RETAIL%')"
+    },
+    {
+      "keyword": "corporate",
+      "aliases": ["corporate_segment", "corporate_customer"],
+      "section": "case_multiple_sbus",
+      "priority": 10,
+      "tags": ["segment", "filter"],
+      "rule": "Use CASE with UPPER(SBU_DESCRIPTION) LIKE UPPER('%CORPORATE%')"
+    },
+    {
+      "keyword": "multiple_products_default_bal_type",
+      "aliases": ["multiple products bal_type","multi category bal type", "loans and deposits balance type", "product mix balance type", "and", "total_deposit", "total_loan", "total_interest", "total_income", "segment", " expense_by_segment"],
+      "section": "case_multiple_products",
+      "priority": 10,
+      "tags": ["case_expression", "multi_measure", "bal_type"],
+      "rule": "Use BAL_TYPE = 1 (End-of-Period balance) unless explicitly stated as P&L."
+    },
+    {
+      "keyword": "case_sum_per_product",
+      "aliases": ["separate columns per product", "case based sum per product", "group placeholders case expression", "per category sum column", "and", "total_deposit", "total_loan", "total_interest", "total_income", "segment", " expense_by_segment"],
+      "section": "case_multiple_products",
+      "priority": 10,
+      "tags": ["case_expression", "multi_measure", "columns"],
+      "rule": "Generate separate CASE-based SUM columns per product/category using MRL group placeholders: ROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_<UPPER_GROUP_NAME>#) THEN <MEASURE_COLUMN> ELSE 0 END), 2) AS <group_name>_value"
+    },
+    {
+      "keyword": "multiple products",
+      "aliases": ["product_mix", "multiple_categories", "and", "total_deposit", "total_loan", "total interest", "total income", "segment", " expense by segment"],
+      "section": "case_multiple_products",
+      "priority": 9,
+      "tags": ["case_expression", "multi_measure"],
+      "rule": "ROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_<UPPER_GROUP_NAME>#) THEN <MEASURE_COLUMN> ELSE 0 END), 2) AS <group_name>_value"
+    },
+    {
+      "keyword": "loans_and_deposits",
+      "aliases": ["loan and deposit","loans_vs_deposits","loan_deposit_split","and", "total_deposit", "total_loan", "total_interest", "total_income", "segment", " expense_by_segment"],
+      "section": "case_multiple_products",
+      "priority": 9,
+      "tags": ["case_expression", "multi_measure", "example"],
+      "rule": "If the request mixes balance sheet (BAL_TYPE=1) and P&L (BAL_TYPE=3) items:"
+    },
+    {
+      "keyword": "mixed_balance_and_pl_global_filter",
+      "aliases": ["mix balance and p&l", "balance plus p&l", "balance and income together", "balance and expense together", "and", "total_deposit", "total_loan", "total_interest", "total_income", "segment", " expense_by_segment"],
+      "section": "case_multiple_products",
+      "priority": 9,
+      "tags": ["case_expression", "multi_measure", "bal_type", "mixed"],
+      "rule": "Global WHERE filter for mixed types: AND BAL_TYPE IN (1,3)"
+    },
+    {
+      "keyword": "case_level_bal_type_condition",
+      "aliases": ["case level bal_type condition","specific bal_type inside case","case expression bal type", "and", "total_deposit", "total_loan", "total_interest", "total_income", "segment", " expense_by_segment"],
+      "section": "case_multiple_products",
+      "priority": 9,
+      "tags": ["case_expression", "bal_type", "mixed"],
+      "rule": "Inside each CASE use specific BAL_TYPE condition for that product/category."
+    },
+    {
+      "keyword": "multiple currencies",
+      "aliases": ["currency_split", "lcy_fcy_split"],
+      "section": "case_multiple_currencies",
+      "priority": 9,
+      "tags": ["case_expression", "currency"],
+      "rule": "Use CASE on CCY_TYPE for each currency. Example: CASE WHEN CCY_TYPE = 'BCY' ... CASE WHEN CCY_TYPE = 'FCY' ..."
+    },
+    {
+      "keyword": "multiple sbus",
+      "aliases": ["segment_split", "sbu_breakdown"],
+      "section": "case_multiple_sbus",
+      "priority": 10,
+      "tags": ["case_expression", "segment"],
+      "rule": "Use CASE on SBU_DESCRIPTION for each segment"
+    },
+    {
+      "keyword": "single product",
+      "aliases": ["single_measure", "one_category"],
+      "section": "case_single_product_no_case",
+      "priority": 10,
+      "tags": ["single_measure", "no_case"],
+      "rule": "NEVER use CASE expression. Use simple SUM() without group placeholders"
+    },
+    {
+      "keyword": "compare",
+      "aliases": ["last_3_months", "three_month_period", "last_6_months", "six_month_period","last_12_months", "twelve_month_period"],
+      "section": "multi_month_queries",
+      "priority": 8,
+      "tags": ["comparison"],
+      "rule": "When user requests 'last N months': Create SEPARATE SUM column for each month, Always include each month individually"
+    },
+    {
+      "keyword": "growth",
+      "aliases": ["increase", "change", "growth_rate"],
+      "section": "yoy_growth_calculation",
+      "priority": 8,
+      "tags": ["comparison", "yoy"],
+      "rule": "Calculate as difference or percentage change between two periods"
+    },
+    {
+      "keyword": "group by",
+      "aliases": ["grouping", "breakdown", "dimension"],
+      "section": "group_by_rules",
+      "priority": 9,
+      "tags": ["grouping"],
+      "rule": "Include all non-aggregated columns from SELECT clause in GROUP BY"
+    },
+    {
+      "keyword": "where",
+      "aliases": ["filter", "filtering", "condition"],
+      "section": "where_clause_rules",
+      "priority": 9,
+      "tags": ["filter"],
+      "rule": "Always include mandatory filters: MRL_LINE (except net income), BAL_TYPE, CCY_TYPE"
+    },
+    {
+      "keyword": "round",
+      "aliases": ["decimal", "rounding", "precision"],
+      "section": "important_notes",
+      "priority": 10,
+      "tags": ["formatting"],
+      "rule": "Always use ROUND(SUM(...), 2) by default. Skip ROUND only if user asks for 'absolute value'"
+    },
+    {
+      "keyword": "absolute value",
+      "aliases": ["absolute", "abs", "original_value"],
+      "section": "important_notes",
+      "priority": 8,
+      "tags": ["formatting"],
+      "rule": "Use SUM() without ROUND() when user explicitly asks for absolute value"
+    },
+    {
+      "keyword": "retail",
+      "aliases": ["corporate", "customer", "kenya", "segment", "country", "sbu", "branch"], 
+      "section": "additional_filter_rules",
+      "priority": 10,
+      "tags": ["filter", "critical"],
+      "rule": "ALWAYS use this format for all other filters: UPPER() LIKE UPPER('%%'). NEVER use: LIKE '%value%' . NEVER use: IN (...)"
+    },
+    {
+      "keyword": "retail",
+      "aliases": ["corporate", "customer", "kenya", "segment", "country", "sbu", "branch"],
+      "section": "additional_filter_rules",
+      "priority": 10,
+      "tags": ["filter"],
+      "rule": "Use filter values EXACTLY as provided by user (no case changes, no trimming)"
+    },
+    {
+      "keyword": "retail",
+      "aliases": ["corporate", "customer", "kenya", "segment", "country", "sbu", "branch"],
+      "section": "additional_filter_rules",
+      "priority": 9,
+      "tags": ["filter"],
+      "rule": "Use 'name' or 'description' columns for filtering by default. - Use code columns ONLY if user explicitly asks for 'code'. - If the query has branch name use OUC_DESCRIPTION column [HIGHEST PRIORITY]"
+    },
+    {
+      "keyword": "retail",
+      "aliases": ["corporate", "customer", "kenya", "segment", "country", "sbu", "branch"],
+      "section": "additional_filter_rules",
+      "priority": 8,
+      "tags": ["filter"],
+      "rule": "Special column mappings : Country filter → use LEB_DESCRIPTION column"
+    },
+    {
+      "keyword": "retail",
+      "aliases": ["corporate", "customer", "kenya", "segment", "country", "sbu", "branch"],
+      "section": "additional_filter_rules",
+      "priority": 7,
+      "tags": ["filter"],
+      "rule": "Dimension handling : - Include dimensions in WHERE only if explicitly mentioned in query"
+    },
+    {
+      "keyword": "retail",
+      "aliases": ["corporate", "customer", "kenya", "segment", "country", "sbu", "branch"],
+      "section": "additional_filter_rules",
+      "priority": 7,
+      "tags": ["filter"],
+      "rule": "Dimension handling : - Exception: 'Sector Code wise' → use ONLY SECTOR_CODE (no description)."
+    },
+    {
+      "keyword": "retail",
+      "aliases": ["corporate", "customer", "kenya", "segment", "country", "sbu", "branch"],
+      "section": "additional_filter_rules",
+      "priority": 6,
+      "tags": ["filter"],
+      "rule": "Exclusion handling: [HIGHEST PRIORITY] - If user mentions 'except', 'excluding', 'other than', 'not in' → IGNORE completely"
+    },
+    {
+      "keyword": "retail",
+      "aliases": ["corporate", "customer", "kenya", "segment", "country", "sbu", "branch"],
+      "section": "additional_filter_rules",
+      "priority": 6,
+      "tags": ["filter"],
+      "rule": "Exclusion handling: [HIGHEST PRIORITY] : - DO NOT implement exclusions using ANY column"
+    },
+    {
+      "keyword": "retail",
+      "aliases": ["corporate", "customer", "kenya", "segment", "country", "sbu", "branch"],
+      "section": "additional_filter_rules",
+      "priority": 6,
+      "tags": ["filter"],
+      "rule": "Exclusion handling: [HIGHEST PRIORITY] : - This is because MRL filtering handles exclusions externally"
+    },
+    {
+      "keyword": "total asset",
+      "aliases": ["asset", "assets", "total assets", "total asset", "asset total"],
+      "section": "additional_filter_rules",
+      "priority": 10,
+      "tags": ["filter", "mrl", "asset"],
+      "rule": "When the query asks for total asset(s), include: WHERE MRL_LINE LIKE 'M1%' without MRL_LINE IN (#MRL_LINES#)"
+    },
+    {
+      "keyword": "total liability",
+      "aliases": ["liability", "liabilities", "total liabilities", "total liability", "liability total"],
+      "section": "additional_filter_rules",
+      "priority": 10,
+      "tags": ["filter", "mrl", "liability"],
+      "rule": "When the query asks for total liability(ies), include: WHERE MRL_LINE LIKE 'M2%' without MRL_LINE IN (#MRL_LINES#)"
+    },
+    {
+      "keyword": "list",
+      "aliases": ["listing", "enumerate", "show"],
+      "section": "query_structure_rules",
+      "priority": 8,
+      "tags": ["query_type"],
+      "rule": "List queries typically include dimension breakdowns. Include both code and description columns"
+    },
+    {
+      "keyword": "breakdown",
+      "aliases": ["split", "by", "analysis"],
+      "section": "query_structure_rules",
+      "priority": 8,
+      "tags": ["dimension"],
+      "rule": "Include appropriate dimension columns and GROUP BY"
+    },
+    {
+      "keyword": "end of period",
+      "aliases": ["eop", "period_end"],
+      "section": "bal_type_values",
+      "priority": 8,
+      "tags": ["balance_type"],
+      "rule": "End of Period balance = BAL_TYPE = 1"
+    },
+    {
+      "keyword": "profit and loss",
+      "aliases": ["pl", "P&L", "income_statement"],
+      "section": "bal_type_values",
+      "priority": 8,
+      "tags": ["balance_type", "measure"],
+      "rule": "P&L items = BAL_TYPE = 3"
+    },
+    {
+      "keyword": "fund transfer pricing",
+      "aliases": ["ftp", "FTP"],
+      "section": "bal_type_values",
+      "priority": 8,
+      "tags": ["balance_type"],
+      "rule": "FTP = BAL_TYPE = 4"
+    },
+    {
+      "keyword": "join",
+      "aliases": ["joins", "inner_join", "left_join"],
+      "section": "general_rules",
+      "priority": 10,
+      "tags": ["critical", "forbidden"],
+      "rule": "NEVER use JOINs. Only query DM_MIS_DETAILS_VW1 table"
+    },
+    {
+      "keyword": "sysdate",
+      "aliases": ["system_date", "current_date", "now"],
+      "section": "never_use_date_arithmetic",
+      "priority": 10,
+      "tags": ["critical", "forbidden"],
+      "rule": "NEVER use SYSDATE, SYSDATE-1, ADD_MONTHS, or date arithmetic. Use predefined period columns"
+    },
+    {
+      "keyword": "date arithmetic",
+      "aliases": ["date_calc", "add_months"],
+      "section": "never_use_date_arithmetic",
+      "priority": 10,
+      "tags": ["critical", "forbidden"],
+      "rule": "Forbidden. Use only predefined period columns (BUSINESS_DAY, CURRENT_MONTH, YTD, etc.)"
+    },
+    {
+      "keyword": "create",
+      "aliases": ["new_column", "derived"],
+      "section": "general_rules",
+      "priority": 10,
+      "tags": ["critical"],
+      "rule": "Never create columns that don't exist in DM_MIS_DETAILS_VW1. Use only existing columns"
+    },
+    {
+      "keyword": "order by",
+      "aliases": ["sort", "sorting", "order"],
+      "section": "query_structure_rules",
+      "priority": 8,
+      "tags": ["sorting"],
+      "rule": "Include ORDER BY for result sorting. Common: ORDER BY <measure> DESC for top rankings"
+    },
+    {
+      "keyword": "sort",
+      "aliases": ["sorting", "order_by"],
+      "section": "query_structure_rules",
+      "priority": 8,
+      "tags": ["sorting"],
+      "rule": "Add ORDER BY clause for results"
+    },
+    {
+      "keyword": "top",
+      "aliases": ["highest", "maximum", "leading"],
+      "section": "query_structure_rules",
+      "priority": 8,
+      "tags": ["sorting"],
+      "rule": "Use ORDER BY <measure> DESC"
+    },
+    {
+      "keyword": "ranking",
+      "aliases": ["rank", "ranked", "order"],
+      "section": "rankings",
+      "priority": 8,
+      "tags": ["measure", "sorting"],
+      "rule": "Use RM_RANK, OUC_RANK, or SBU_RANK columns when ranking by different dimensions"
+    },
+    {
+      "keyword": "same_period_last_year",
+      "aliases": ["spy", "prior_year_same_period", "PY_SP_YTD", "PREV_YEAR_YTD"],
+      "section": "important_clarification",
+      "priority": 9,
+      "tags": ["time", "yoy"],
+      "rule": "NEVER Use PY_SP_YTD for 'last year' or 'previous year'. Always use PREV_YEAR_YTD."
+    },
+    {
+      "keyword": "prior year same period",
+      "aliases": ["pysp", "py_sp","same period","same period last year","last year same period", "previous_year_same_period","last_year", "previous_year","PREV_YEAR_YTD", "PY_SP_YTD", "same_period_last_year"],
+      "section": "important_clarification",
+      "priority": 9,
+      "tags": ["time", "yoy"],
+      "rule": " For 'last year' or 'previous year' comparisons: Use PREV_YEAR_YTD when comparing to current YTD , Only use PY_SP_YTD when explicitly asking for 'same period' comparison"
+    },
+    {
+      "keyword": "prior year same period",
+      "aliases": ["pysp", "py_sp", "previous_year_same_period","last_year", "previous_year","PREV_YEAR_YTD", "PY_SP_YTD", "same_period_last_year"],
+      "section": "important_clarification",
+      "priority": 9,
+      "tags": ["time", "yoy"],
+      "rule": " Example  : 1) Show YTD vs last year' → Use YTD and PREV_YEAR_YTD 2) Show YTD vs same period last year' → Use YTD and PY_SP_YTD"
+    },
+    {
+      "keyword": "average balance",
+      "aliases": ["avg_balance", "average_outstanding"],
+      "section": "bal_type_selection_rules",
+      "priority": 9,
+      "tags": ["measure", "aggregation"],
+      "rule": "Use BAL_TYPE = 2 with SUM() function. Always use SUM, never AVG"
+    },
+    {
+      "keyword": "coalesce",
+      "aliases": ["null_handling", "null_replacement"],
+      "section": "query_structure_rules",
+      "priority": 8,
+      "tags": ["function", "null_handling"],
+      "rule": "Use COALESCE(SUM(...), 0) to handle NULL values in aggregates"
+    },
+    {
+      "keyword": "null",
+      "aliases": ["nulls", "empty", "missing"],
+      "section": "query_structure_rules",
+      "priority": 8,
+      "tags": ["null_handling"],
+      "rule": "Use COALESCE to handle NULLs in aggregations"
+    },
+    {
+      "keyword": "placeholder",
+      "aliases": ["#MRL_LINES#", "#GROUP_"],
+      "section": "mrl_placeholder_rules",
+      "priority": 10,
+      "tags": ["critical", "mrl"],
+      "rule": "Never expand placeholders. System replaces #MRL_LINES# and group placeholders automatically"
+    },
+    {
+      "keyword": "#MRL_LINES#",
+      "aliases": ["mrl_placeholder", "MRL_placeholder"],
+      "section": "mrl_placeholder_rules",
+      "priority": 10,
+      "tags": ["critical", "mrl"],
+      "rule": "Overall MRL filter placeholder. Never expand or modify"
+    },
+    {
+      "keyword": "group placeholder",
+      "aliases": ["#GROUP_", "group_mrl"],
+      "section": "mrl_placeholder_rules",
+      "priority": 9,
+      "tags": ["mrl", "case_expression"],
+      "rule": "Use in CASE expressions for product categories. Never expand"
+    },
+    {
+      "keyword": "relationship manager",
+      "aliases": ["rm", "account_officer"],
+      "section": "query_structure_rules",
+      "priority": 8,
+      "tags": ["dimension"],
+      "rule": "Query RM data using ACCOUNT_OFFICER and AO_NAME"
+    },
+    {
+      "keyword": "account wise",
+      "aliases": ["by_account", "per_account"],
+      "section": "query_structure_rules",
+      "priority": 8,
+      "tags": ["dimension", "grouping"],
+      "rule": "Include account-related dimensions in SELECT and GROUP BY"
+    },
+    {
+      "keyword": "contract",
+      "aliases": ["contract_id","account", "account_contract"],
+      "section": "account_dimensions",
+      "priority": 8,
+      "tags": ["dimension"],
+      "rule": "Use CONTRACT_ID for  contract-level and account wise queries"
+    },
+    {
+      "keyword": "contract id",
+      "aliases": ["contract", "source_id"],
+      "section": "account_dimensions",
+      "priority": 8,
+      "tags": ["dimension", "filter"],
+      "rule": "Use CONTRACT_ID or SOURCE_ID for contract filtering"
+    },
+    {
+      "keyword": "trend",
+      "aliases": ["monthly trend", "growth", "growth rate" ,"each month"],
+      "section": "trend_rules",
+      "priority": 9,
+      "tags": ["trend", "growth"],
+      "rule": "Rules for handling trend analysis and multi-period time series queries "
+    },
+    {
+      "keyword": "trend",
+      "aliases": ["monthly trend", "growth", "growth rate" ,"each month"],
+      "section": "trend_rules",
+      "priority": 9,
+      "tags": ["trend", "growth"],
+      "rule": "DEFINITION : The word 'Trend' in a user query implies a multi-period time series output, not a single aggregated value."
+    },
+    {
+      "keyword": "trend",
+      "aliases": ["monthly trend", "growth", "growth rate" ,"each month"],
+      "section": "trend_rules",
+      "priority": 9,
+      "tags": ["trend", "growth"],
+      "rule": "It must display separate columns (or rows) for each month in the trend window."
+    },
+    {
+      "keyword": "trend",
+      "aliases": ["monthly trend", "growth", "growth rate" ,"each month"],
+      "section": "trend_rules",
+      "priority": 9,
+      "tags": ["trend", "growth"],
+      "rule": "2. Default Trend Window:"
+    },
+    {
+      "keyword": "trend",
+      "aliases": ["monthly trend", "growth", "growth rate" ,"each month"],
+      "section": "trend_rules",
+      "priority": 9,
+      "tags": ["trend", "growth"],
+      "rule": "For “Monthly Trend” → show the last 6 months of data."
+    },
+    {
+      "keyword": "trend",
+      "aliases": ["monthly trend", "growth", "growth rate" ,"each month"],
+      "section": "trend_rules",
+      "priority": 9,
+      "tags": ["trend", "growth"],
+      "rule": "Meaning: include [CURRENT_MONTH, PRIOR_MONTH, PRIOR_2_MONTH, PRIOR_3_MONTH, PRIOR_4_MONTH, PRIOR_5_MONTH] in the SELECT clause."
+    },
+    {
+      "keyword": "trend",
+      "aliases": ["monthly trend", "growth", "growth rate" ,"each month"],
+      "section": "trend_rules",
+      "priority": 9,
+      "tags": ["trend", "growth"],
+      "rule": "3. Column Output Format:"
+    },
+    {
+      "keyword": "trend",
+      "aliases": ["monthly trend", "growth", "growth rate" ,"each month"],
+      "section": "trend_rules",
+      "priority": 9,
+      "tags": ["trend", "growth"],
+      "rule": "Each month must appear as its own aggregated column:"
+    },
+    {
+      "keyword": "trend",
+      "aliases": ["monthly trend", "growth", "growth rate" ,"each month"],
+      "section": "trend_rules",
+      "priority": 9,
+      "tags": ["trend", "growth"],
+      "rule": "ROUND(SUM(PRIOR_5_MONTH), 2) AS five_months_ago_balance,"
+    },
+    {
+      "keyword": "trend",
+      "aliases": ["monthly trend", "growth", "growth rate" ,"each month"],
+      "section": "trend_rules",
+      "priority": 9,
+      "tags": ["trend", "growth"],
+      "rule": "ROUND(SUM(PRIOR_4_MONTH), 2) AS four_months_ago_balance,"
+    },
+    {
+      "keyword": "trend",
+      "aliases": ["monthly trend", "growth", "growth rate" ,"each month"],
+      "section": "trend_rules",
+      "priority": 9,
+      "tags": ["trend", "growth"],
+      "rule": "ROUND(SUM(PRIOR_3_MONTH), 2) AS three_months_ago_balance,"
+    },
+    {
+      "keyword": "trend",
+      "aliases": ["monthly trend", "growth", "growth rate" ,"each month"],
+      "section": "trend_rules",
+      "priority": 9,
+      "tags": ["trend", "growth"],
+      "rule": "ROUND(SUM(PRIOR_2_MONTH), 2) AS two_months_ago_balance,"
+    },
+    {
+      "keyword": "trend",
+      "aliases": ["monthly trend", "growth", "growth rate" ,"each month"],
+      "section": "trend_rules",
+      "priority": 9,
+      "tags": ["trend", "growth"],
+      "rule": "ROUND(SUM(PRIOR_MONTH), 2) AS one_month_ago_balance,"
+    },
+    {
+      "keyword": "trend",
+      "aliases": ["monthly trend", "growth", "growth rate" ,"each month"],
+      "section": "trend_rules",
+      "priority": 9,
+      "tags": ["trend", "growth"],
+      "rule": "ROUND(SUM(CURRENT_MONTH), 2) AS current_month_balance"
+    }
+  ]
+}

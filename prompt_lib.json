@@ -1,0 +1,420 @@
+{
+  "snippets": [
+    {
+      "id": "ex_total_deposit_current_month",
+      "tags": ["mis_reporting", "deposits", "aggregation", "single_measure"],
+      "text": "User: total deposit for current month\nSQL:\nSELECT ROUND(SUM(MTD), 2) AS total_deposit_current_month\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_total_assets_current_month",
+      "tags": ["mis_reporting", "assets", "aggregation", "single_measure", "m1"],
+      "text": "User: total assets for current month\nSQL:\nSELECT ROUND(SUM(MTD), 2) AS total_assets_current_month\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE LIKE 'M1%'\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_total_liabilities_current_month",
+      "tags": ["mis_reporting", "liabilities", "aggregation", "single_measure", "m2"],
+      "text": "User: total liabilities for current month\nSQL:\nSELECT ROUND(SUM(MTD), 2) AS total_liabilities_current_month\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE LIKE 'M2%'\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_ytd_net_income",
+      "tags": ["mis_reporting", "net_income", "aggregation", "single_measure"],
+      "text": "User: year to date net income\nSQL:\nSELECT ROUND(SUM(YTD), 2) AS ytd_net_income\nFROM DM_MIS_DETAILS_VW1\nWHERE BAL_TYPE = 3\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_last_three_months_deposits",
+      "tags": ["mis_reporting", "deposits", "time_series", "multi_month"],
+      "text": "User: deposits for last 3 months\nSQL:\nSELECT\n  ROUND(SUM(PRIOR_2_MONTH), 2) AS three_months_ago,\n  ROUND(SUM(PRIOR_MONTH), 2) AS two_months_ago,\n  ROUND(SUM(CURRENT_MONTH), 2) AS current_month\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_deposits_vs_last_year",
+      "tags": ["mis_reporting", "deposits", "yoy_comparison"],
+      "text": "User: YTD deposits vs previous year\nSQL:\nSELECT\n  ROUND(SUM(YTD), 2) AS ytd_current_year,\n  ROUND(SUM(PREV_YEAR_YTD), 2) AS ytd_previous_year\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_deposits_by_branch",
+      "tags": ["mis_reporting", "deposits", "dimension_breakdown", "branch_wise"],
+      "text": "User: current month deposits by branch\nSQL:\nSELECT\n  VISION_OUC,\n  OUC_DESCRIPTION,\n  ROUND(SUM(MTD), 2) AS deposit_amount\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'\nGROUP BY VISION_OUC, OUC_DESCRIPTION\nORDER BY deposit_amount DESC"
+    },
+    {
+      "id": "ex_deposits_by_segment",
+      "tags": ["mis_reporting", "deposits", "dimension_breakdown", "segment_wise"],
+      "text": "User: YTD deposits by business segment\nSQL:\nSELECT\n  VISION_SBU,\n  SBU_DESCRIPTION,\n  ROUND(SUM(YTD), 2) AS ytd_deposits\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'\nGROUP BY VISION_SBU, SBU_DESCRIPTION\nORDER BY ytd_deposits DESC"
+    },
+    {
+      "id": "ex_nim_current_prior_month",
+      "tags": ["mis_reporting", "nim", "comparison", "time_based"],
+      "text": "User: Net Interest Margin current vs prior month\nSQL:\nSELECT\n  ROUND(SUM(MTD), 2) AS current_month_nim,\n  ROUND(SUM(CURRENT_MONTH), 2) AS prior_month_nim\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE IN (3, 4)\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_term_loans_prior_month_balance",
+      "tags": ["mis_reporting", "term_loans", "aggregation", "single_measure", "prior_month"],
+      "text": "User: What was the total outstanding balance of all term loans at the end of the previous month?\nSQL:\nSELECT ROUND(SUM(CURRENT_MONTH), 2) AS total_outstanding_term_loans\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_term_loans_combined_balance",
+      "tags": ["mis_reporting", "term_loans", "aggregation", "single_measure", "balance"],
+      "text": "User: As of the last month-end, what is the combined balance of term loans on the books?\nSQL:\nSELECT ROUND(SUM(CURRENT_MONTH), 2) AS combined_term_loan_balance\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_term_loans_portfolio_outstanding",
+      "tags": ["mis_reporting", "term_loans", "aggregation", "portfolio", "prior_month"],
+      "text": "User: What is the term loan portfolio's total outstanding amount reported at the close of last month?\nSQL:\nSELECT ROUND(SUM(CURRENT_MONTH), 2) AS total_outstanding_term_loans\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_term_loans_current_month_balance",
+      "tags": ["mis_reporting", "term_loans", "aggregation", "single_measure", "current_month"],
+      "text": "User: How much was the total balance of term loans as of the month-end reporting date?\nSQL:\nSELECT ROUND(SUM(CURRENT_MONTH), 2) AS total_term_loan_balance\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_term_loans_aggregated_current_month",
+      "tags": ["mis_reporting", "term_loans", "aggregation", "single_measure", "current_month"],
+      "text": "User: What is the aggregated outstanding term loan balance as recorded on the last day of the Current month?\nSQL:\nSELECT ROUND(SUM(BUSINESS_DAY), 2) AS aggregated_term_loan_balance\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_term_loans_lcy_fcy_split_current",
+      "tags": ["mis_reporting", "term_loans", "currency_breakdown", "lcy_fcy", "current_month"],
+      "text": "User: What is the split of term loans between local currency (LCY) and foreign currency (FCY) in the current month?\nSQL:\nSELECT \n    ROUND(SUM(CASE WHEN CCY_TYPE = 'BCY' THEN MTD ELSE 0 END), 2) AS lcy_term_loans,\n    ROUND(SUM(CASE WHEN CCY_TYPE = 'FCY' THEN MTD ELSE 0 END), 2) AS fcy_term_loans\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1"
+    },
+    {
+      "id": "ex_term_loans_lcy_fcy_distribution",
+      "tags": ["mis_reporting", "term_loans", "currency_breakdown", "lcy_fcy", "distribution"],
+      "text": "User: How are term loans distributed between local currency (LCY) and foreign currency (FCY) for the current month?\nSQL:\nSELECT \n    ROUND(SUM(CASE WHEN CCY_TYPE = 'BCY' THEN MTD ELSE 0 END), 2) AS lcy_term_loans,\n    ROUND(SUM(CASE WHEN CCY_TYPE = 'FCY' THEN MTD ELSE 0 END), 2) AS fcy_term_loans\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1"
+    },
+    {
+      "id": "ex_term_loans_currency_portion_month_to_date",
+      "tags": ["mis_reporting", "term_loans", "currency_breakdown", "lcy_fcy", "MTD"],
+      "text": "User: As of this month, what portion of term loans is in local currency versus foreign currency?\nSQL:\nSELECT \n    ROUND(SUM(CASE WHEN CCY_TYPE = 'BCY' THEN MTD ELSE 0 END), 2) AS lcy_term_loans,\n    ROUND(SUM(CASE WHEN CCY_TYPE = 'FCY' THEN MTD ELSE 0 END), 2) AS fcy_term_loans\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1"
+    },
+    {
+      "id": "ex_term_loans_principal_balance_business_day",
+      "tags": ["mis_reporting", "term_loans", "aggregation", "single_measure", "business_day"],
+      "text": "User: What is the total principal balance of term loans as of the end of today?\nSQL:\nSELECT ROUND(SUM(BUSINESS_DAY), 2) AS total_principal_term_loans\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_term_loans_outstanding_principal_today",
+      "tags": ["mis_reporting", "term_loans", "aggregation", "single_measure", "business_day"],
+      "text": "User: As of today's close, what is the outstanding term loan principal?\nSQL:\nSELECT ROUND(SUM(BUSINESS_DAY), 2) AS outstanding_term_loan_principal\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_term_loans_principal_end_of_day",
+      "tags": ["mis_reporting", "term_loans", "aggregation", "single_measure", "business_day"],
+      "text": "User: How much is the total term loan principal outstanding at the end of the current day?\nSQL:\nSELECT ROUND(SUM(BUSINESS_DAY), 2) AS total_term_loan_principal\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+   
+    {
+      "id": "ex_term_loans_lcy_fcy_disbursements_prior_month",
+      "tags": ["mis_reporting", "term_loans", "currency_breakdown", "lcy_fcy", "disbursement", "prior_month"],
+      "text": "User: How much new term loan disbursement of local currency and foreign currency was made last month?\nSQL:\nSELECT \n    ROUND(SUM(CASE WHEN CCY_TYPE = 'BCY' THEN CURRENT_MONTH ELSE 0 END), 2) AS new_lcy_disbursements,\n    ROUND(SUM(CASE WHEN CCY_TYPE = 'FCY' THEN CURRENT_MONTH ELSE 0 END), 2) AS new_fcy_disbursements\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1"
+    },
+    {
+      "id": "ex_term_loans_avg_by_segment",
+      "tags": ["mis_reporting", "term_loans", "aggregation", "dimension_breakdown", "segment_wise"],
+      "text": "User: What is the average outstanding term loan balance per segments a given month?\nSQL:\nSELECT \n    VISION_SBU,\n    SBU_DESCRIPTION,\n    ROUND(SUM(MTD), 2) AS avg_outstanding_term_loans\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 2\nAND CCY_TYPE = 'BCY'\nGROUP BY VISION_SBU, SBU_DESCRIPTION"
+    },
+    {
+      "id": "ex_loan_deposit_growth_mom",
+      "tags": ["mis_reporting", "loan", "deposit", "growth", "mom", "comparison"],
+      "text": "User: what is the growth of loan and deposit compare to last month\nSQL:\nSELECT \n ROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_LOAN#) THEN MTD ELSE 0 END), 2) AS CURRENT_MONTH_LOAN,\n ROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_LOAN#) THEN CURRENT_MONTH ELSE 0 END), 2) AS PRIOR_MONTH_LOAN,\n ROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_DEPOSIT#) THEN MTD ELSE 0 END), 2) AS CURRENT_MONTH_DEPOSIT,\n ROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_DEPOSIT#) THEN CURRENT_MONTH ELSE 0 END), 2) AS PRIOR_MONTH_DEPOSIT,\n CASE WHEN SUM(CASE WHEN MRL_LINE IN (#GROUP_LOAN#) THEN CURRENT_MONTH ELSE 0 END) = 0 THEN 0 ELSE ROUND(((SUM(CASE WHEN MRL_LINE IN (#GROUP_LOAN#) THEN MTD ELSE 0 END) - SUM(CASE WHEN MRL_LINE IN (#GROUP_LOAN#) THEN CURRENT_MONTH ELSE 0 END)) / SUM(CASE WHEN MRL_LINE IN (#GROUP_LOAN#) THEN CURRENT_MONTH ELSE 0 END)) * 100, 2) END AS LOAN_GROWTH_RATE,\n CASE WHEN SUM(CASE WHEN MRL_LINE IN (#GROUP_DEPOSIT#) THEN CURRENT_MONTH ELSE 0 END) = 0 THEN 0 ELSE ROUND(((SUM(CASE WHEN MRL_LINE IN (#GROUP_DEPOSIT#) THEN MTD ELSE 0 END) - SUM(CASE WHEN MRL_LINE IN (#GROUP_DEPOSIT#) THEN MTD ELSE 0 END)) / SUM(CASE WHEN MRL_LINE IN (#GROUP_DEPOSIT#) THEN CURRENT_MONTH ELSE 0 END)) * 100, 2) END AS DEPOSIT_GROWTH_RATE\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_term_loans_corporate_retail_ytd",
+      "tags": ["mis_reporting", "term_loans", "segment_wise", "year_end", "corporate_retail"],
+      "text": "User: What is the total term loan outstanding of Corporate & Retail segments at year-end?\nSQL:\nSELECT \n    ROUND(SUM(CASE WHEN UPPER(SBU_DESCRIPTION) LIKE UPPER('%CORPORATE%') THEN YTD ELSE 0 END), 2) AS corporate_segment_outstanding,\n    ROUND(SUM(CASE WHEN UPPER(SBU_DESCRIPTION) LIKE UPPER('%RETAIL%') THEN YTD ELSE 0 END), 2) AS retail_segment_outstanding\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_term_loans_principal_repaid_ytd",
+      "tags": ["mis_reporting", "term_loans", "repayment", "year_end", "principal"],
+      "text": "User: How much principal of term loans repaid during the year?\nSQL:\nSELECT ROUND(SUM(YTD), 2) AS principal_repaid\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_term_loans_growth_rate_yoy",
+      "tags": ["mis_reporting", "term_loans", "growth", "year_over_year", "yoy_comparison"],
+      "text": "User: What is the growth rate of the term loans over the year compared to last year?\nSQL:\nSELECT ROUND((SUM(YTD) - SUM(PREV_YEAR_YTD)) / NULLIF(SUM(PREV_YEAR_YTD), 0) * 100, 2) AS growth_rate\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_term_loans_interest_income_lcy_fcy_prior",
+      "tags": ["mis_reporting", "term_loans", "interest_income", "currency_breakdown", "lcy_fcy", "prior_month"],
+      "text": "User: What was the total interest income from term loans in local currency and foreign currency for the last month?\nSQL:\nSELECT \n    ROUND(SUM(CASE WHEN CCY_TYPE = 'BCY' THEN CURRENT_MONTH ELSE 0 END), 2) AS interest_income_lcy,\n    ROUND(SUM(CASE WHEN CCY_TYPE = 'FCY' THEN CURRENT_MONTH ELSE 0 END), 2) AS interest_income_fcy\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 3\nAND CCY_TYPE IN ('BCY', 'FCY')"
+    },
+    {
+      "id": "ex_term_loans_top_interest_income_prior_month",
+      "tags": ["mis_reporting", "term_loans", "interest_income", "top_category", "prior_month"],
+      "text": "User: Which category of term loans generated the most interest income during the previous month?\nSQL:\nSELECT \n    MRL_LINE,\n    ROUND(SUM(CURRENT_MONTH), 2) AS interest_income\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 3\nAND CCY_TYPE = 'BCY'\nGROUP BY MRL_LINE\nORDER BY interest_income DESC\nFETCH FIRST 1 ROW ONLY"
+    },
+    {
+      "id": "ex_term_loans_highest_interest_type_prior",
+      "tags": ["mis_reporting", "term_loans", "interest_income", "highest_contributor", "prior_month"],
+      "text": "User: In the last month, which type of term loan contributed the highest amount of interest income?\nSQL:\nSELECT \n MRL_LINE,\n MRL_DESCRIPTION,\n ROUND(SUM(CURRENT_MONTH), 2) AS interest_income\nFROM \n DM_MIS_DETAILS_VW1\nWHERE \n MRL_LINE IN (#MRL_LINES#)\n AND BAL_TYPE = 3\n AND CCY_TYPE = 'BCY'\nGROUP BY \n MRL_LINE,\n MRL_DESCRIPTION\nORDER BY \n interest_income DESC\nFETCH FIRST 1 ROW ONLY"
+    },
+    {
+      "id": "ex_term_loans_highest_interest_product_current",
+      "tags": ["mis_reporting", "term_loans", "interest_income", "product_wise", "current_month"],
+      "text": "User: Which term loan product showed the largest interest income for the reporting month?\nSQL:\nSELECT \n    MRL_LINE,\n    ROUND(SUM(CURRENT_MONTH), 2) AS interest_income\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 3\nAND CCY_TYPE = 'BCY'\nGROUP BY MRL_LINE\nORDER BY interest_income DESC\nFETCH FIRST 1 ROW ONLY"
+    },
+    {
+      "id": "ex_term_loans_interest_trend_lcy_fcy",
+      "tags": ["mis_reporting", "term_loans", "interest_income", "trend_analysis", "currency_breakdown", "six_month"],
+      "text": "User: How does the monthly trend of term loan interest income differ between local and foreign currency loans?\nSQL:\nSELECT\n    ROUND(SUM(CASE WHEN CCY_TYPE = 'BCY' THEN PRIOR_5_MONTH ELSE 0 END), 2) AS lcy_six_months_ago,\n    ROUND(SUM(CASE WHEN CCY_TYPE = 'FCY' THEN PRIOR_5_MONTH ELSE 0 END), 2) AS fcy_six_months_ago,\n    ROUND(SUM(CASE WHEN CCY_TYPE = 'BCY' THEN PRIOR_4_MONTH ELSE 0 END), 2) AS lcy_five_months_ago,\n    ROUND(SUM(CASE WHEN CCY_TYPE = 'FCY' THEN PRIOR_4_MONTH ELSE 0 END), 2) AS fcy_five_months_ago,\n    ROUND(SUM(CASE WHEN CCY_TYPE = 'BCY' THEN PRIOR_3_MONTH ELSE 0 END), 2) AS lcy_four_months_ago,\n    ROUND(SUM(CASE WHEN CCY_TYPE = 'FCY' THEN PRIOR_3_MONTH ELSE 0 END), 2) AS fcy_four_months_ago,\n    ROUND(SUM(CASE WHEN CCY_TYPE = 'BCY' THEN PRIOR_2_MONTH ELSE 0 END), 2) AS lcy_three_months_ago,\n    ROUND(SUM(CASE WHEN CCY_TYPE = 'FCY' THEN PRIOR_2_MONTH ELSE 0 END), 2) AS fcy_three_months_ago,\n    ROUND(SUM(CASE WHEN CCY_TYPE = 'BCY' THEN PRIOR_MONTH ELSE 0 END), 2) AS lcy_two_months_ago,\n    ROUND(SUM(CASE WHEN CCY_TYPE = 'FCY' THEN PRIOR_MONTH ELSE 0 END), 2) AS fcy_two_months_ago,\n    ROUND(SUM(CASE WHEN CCY_TYPE = 'BCY' THEN CURRENT_MONTH ELSE 0 END), 2) AS lcy_current_month,\n    ROUND(SUM(CASE WHEN CCY_TYPE = 'FCY' THEN CURRENT_MONTH ELSE 0 END), 2) AS fcy_current_month\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 3\nAND CCY_TYPE IN ('BCY', 'FCY')"
+    },
+    {
+      "id": "ex_term_loans_highest_variance_month",
+      "tags": ["mis_reporting", "term_loans", "interest_income", "variance_analysis", "highest_month", "six_month_trend"],
+      "text": "User: Which month showed the highest variance in interest income from term loans?\nSQL:\nWITH monthly_income AS (\n  SELECT\n    ROUND(SUM(PRIOR_5_MONTH), 2) AS six_months_ago,\n    ROUND(SUM(PRIOR_4_MONTH), 2) AS five_months_ago,\n    ROUND(SUM(PRIOR_3_MONTH), 2) AS four_months_ago,\n    ROUND(SUM(PRIOR_2_MONTH), 2) AS three_months_ago,\n    ROUND(SUM(PRIOR_MONTH), 2) AS two_months_ago,\n    ROUND(SUM(CURRENT_MONTH), 2) AS current_month\n  FROM DM_MIS_DETAILS_VW1\n  WHERE MRL_LINE IN (#MRL_LINES#)\n  AND BAL_TYPE = 3\n  AND CCY_TYPE = 'BCY'\n),\nvariance_calc AS (\n  SELECT\n    six_months_ago,\n    five_months_ago,\n    four_months_ago,\n    three_months_ago,\n    two_months_ago,\n    current_month,\n    ABS(six_months_ago - five_months_ago) AS variance_5_6,\n    ABS(five_months_ago - four_months_ago) AS variance_4_5,\n    ABS(four_months_ago - three_months_ago) AS variance_3_4,\n    ABS(three_months_ago - two_months_ago) AS variance_2_3,\n    ABS(two_months_ago - current_month) AS variance_1_2\n  FROM monthly_income\n),\nmax_variance AS (\n  SELECT\n    GREATEST(variance_5_6, variance_4_5, variance_3_4, variance_2_3, variance_1_2) AS max_variance\n  FROM variance_calc\n)\nSELECT\n  CASE\n    WHEN variance_1_2 = max_variance THEN 'Current Month'\n    WHEN variance_2_3 = max_variance THEN 'Two Months Ago'\n    WHEN variance_3_4 = max_variance THEN 'Three Months Ago'\n    WHEN variance_4_5 = max_variance THEN 'Four Months Ago'\n    WHEN variance_5_6 = max_variance THEN 'Five Months Ago'\n  END AS month_with_highest_variance,\n  max_variance AS variance,\n  CASE\n    WHEN variance_1_2 = max_variance THEN current_month\n    WHEN variance_2_3 = max_variance THEN two_months_ago\n    WHEN variance_3_4 = max_variance THEN three_months_ago\n    WHEN variance_4_5 = max_variance THEN four_months_ago\n    WHEN variance_5_6 = max_variance THEN five_months_ago\n  END AS interest_income\nFROM variance_calc, max_variance\nWHERE variance_1_2 = max_variance\nOR variance_2_3 = max_variance\nOR variance_3_4 = max_variance\nOR variance_4_5 = max_variance\nOR variance_5_6 = max_variance"
+    },
+    {
+      "id": "ex_term_loans_interest_corporate_retail_split",
+      "tags": ["mis_reporting", "term_loans", "interest_income", "segment_wise", "corporate_retail"],
+      "text": "User: As of the last reporting day, how is term loan interest income split between corporate and retail segments?\nSQL:\nSELECT \n    ROUND(SUM(CASE WHEN UPPER(SBU_DESCRIPTION) LIKE UPPER('%CORPORATE%') THEN BUSINESS_DAY ELSE 0 END), 2) AS corporate_interest_income,\n    ROUND(SUM(CASE WHEN UPPER(SBU_DESCRIPTION) LIKE UPPER('%RETAIL%') THEN BUSINESS_DAY ELSE 0 END), 2) AS retail_interest_income\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 3\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_term_loans_corporate_retail_interest_current_month",
+      "tags": ["mis_reporting", "term_loans", "interest_income", "segment_wise", "corporate_retail", "current_month"],
+      "text": "User: What portion of term loan interest income comes from corporate versus retail customers at month-end?\nSQL:\nSELECT \n    ROUND(SUM(CASE WHEN UPPER(SBU_DESCRIPTION) LIKE UPPER('%CORPORATE%') THEN CURRENT_MONTH ELSE 0 END), 2) AS corporate_interest_income,\n    ROUND(SUM(CASE WHEN UPPER(SBU_DESCRIPTION) LIKE UPPER('%RETAIL%') THEN CURRENT_MONTH ELSE 0 END), 2) AS retail_interest_income\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 3\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_term_loans_interest_distribution_eod",
+      "tags": ["mis_reporting", "term_loans", "interest_income", "segment_wise", "corporate_retail", "business_day"],
+      "text": "User: On the last day of the reporting period, how does interest income from term loans distribute across corporate and retail clients?\nSQL:\nSELECT \n    ROUND(SUM(CASE WHEN UPPER(SBU_DESCRIPTION) LIKE UPPER('%CORPORATE%') THEN BUSINESS_DAY ELSE 0 END), 2) AS corporate_interest_income,\n    ROUND(SUM(CASE WHEN UPPER(SBU_DESCRIPTION) LIKE UPPER('%RETAIL%') THEN BUSINESS_DAY ELSE 0 END), 2) AS retail_interest_income\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 3\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_term_loans_interest_trend_6months",
+      "tags": ["mis_reporting", "term_loans", "interest_income", "trend_analysis", "six_month"],
+      "text": "User: How has the monthly interest income from term loans trended over the past six months?\nSQL:\nSELECT \n    ROUND(SUM(PRIOR_5_MONTH), 2) AS five_months_ago_interest_income,\n    ROUND(SUM(PRIOR_4_MONTH), 2) AS four_months_ago_interest_income,\n    ROUND(SUM(PRIOR_3_MONTH), 2) AS three_months_ago_interest_income,\n    ROUND(SUM(PRIOR_2_MONTH), 2) AS two_months_ago_interest_income,\n    ROUND(SUM(PRIOR_MONTH), 2) AS one_month_ago_interest_income,\n    ROUND(SUM(CURRENT_MONTH), 2) AS current_month_interest_income\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 3\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_top_customer_segment_term_loans_prior",
+      "tags": ["mis_reporting", "term_loans", "segment_wise", "top_contributor", "prior_month"],
+      "text": "User: Which customer segment contributed the highest portion from term loans in the last month?\nSQL:\nSELECT \n    SBU_DESCRIPTION,\n    ROUND(SUM(CURRENT_MONTH), 2) AS term_loan_contribution\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'\nGROUP BY SBU_DESCRIPTION\nORDER BY term_loan_contribution DESC\nFETCH FIRST 1 ROW ONLY"
+    },
+    {
+      "id": "ex_mortgage_loans_principal_lcy_fcy_today",
+      "tags": ["mis_reporting", "mortgage", "aggregation", "currency_breakdown", "lcy_fcy", "business_day"],
+      "text": "User: What is the total principal outstanding for mortgage loans in LCY and FCY as of today?\nSQL:\nSELECT \n    ROUND(SUM(CASE WHEN CCY_TYPE = 'BCY' THEN BUSINESS_DAY ELSE 0 END), 2) AS mortgage_loans_lcy,\n    ROUND(SUM(CASE WHEN CCY_TYPE = 'FCY' THEN BUSINESS_DAY ELSE 0 END), 2) AS mortgage_loans_fcy\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE IN ('BCY', 'FCY')"
+    },
+    {
+      "id": "ex_mortgage_disbursements_retail_corporate_wtd",
+      "tags": ["mis_reporting", "mortgage", "disbursement", "segment_wise", "retail_corporate", "week_to_date"],
+      "text": "User: What is the weekly disbursement amount of mortgage loans for retail vs corporate customers?\nSQL:\nSELECT \n    ROUND(SUM(CASE WHEN UPPER(SBU_DESCRIPTION) LIKE UPPER('%RETAIL%') THEN WTD ELSE 0 END), 2) AS retail_mortgage_disbursements,\n    ROUND(SUM(CASE WHEN UPPER(SBU_DESCRIPTION) LIKE UPPER('%CORPORATE%') THEN WTD ELSE 0 END), 2) AS corporate_mortgage_disbursements\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_mortgage_growth_percentage_ytd_by_branch",
+      "tags": ["mis_reporting", "mortgage", "growth", "year_over_year", "branch_wise"],
+      "text": "User: What is the growth percentage the year-end mortgage loan balance and compared to the previous year, per branch?\nSQL:\nSELECT \n    VISION_OUC,\n    OUC_DESCRIPTION,\n    ROUND(SUM(YTD) / NULLIF(SUM(PREV_YEAR_YTD), 0) * 100, 2) AS ytd_growth_percentage\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'\nGROUP BY VISION_OUC, OUC_DESCRIPTION"
+    },
+    {
+      "id": "ex_top_branch_mortgage_balance_prior_month",
+      "tags": ["mis_reporting", "mortgage", "aggregation", "branch_wise", "prior_month"],
+      "text": "User: What is the branch having highest value of mortgage loan at the end previous month?\nSQL:\nSELECT \n    VISION_OUC,\n    OUC_DESCRIPTION,\n    ROUND(SUM(CURRENT_MONTH), 2) AS mortgage_loan_balance\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'\nGROUP BY VISION_OUC, OUC_DESCRIPTION\nORDER BY mortgage_loan_balance DESC\nFETCH FIRST 1 ROW ONLY"
+    },
+    {
+      "id": "ex_mortgage_interest_income_lcy_fcy_yesterday",
+      "tags": ["mis_reporting", "mortgage", "interest_income", "currency_breakdown", "lcy_fcy", "previous_day"],
+      "text": "User: What is the total interest income earned from mortgage loans in LCY and FCY as yesterday?\nSQL:\nSELECT \n    ROUND(SUM(CASE WHEN CCY_TYPE = 'BCY' THEN PREVIOUS_DAY ELSE 0 END), 2) AS interest_income_lcy,\n    ROUND(SUM(CASE WHEN CCY_TYPE = 'FCY' THEN PREVIOUS_DAY ELSE 0 END), 2) AS interest_income_fcy\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 3\nAND CCY_TYPE IN ('BCY', 'FCY')"
+    },
+    {
+      "id": "ex_mortgage_processing_fees_corporate_retail_wtd",
+      "tags": ["mis_reporting", "mortgage", "fees", "segment_wise", "corporate_retail", "week_to_date"],
+      "text": "User: Calculate the total processing fees from mortgage loans for corporate vs retail segments in the last week.\nSQL:\nSELECT \n    ROUND(SUM(CASE WHEN UPPER(SBU_DESCRIPTION) LIKE UPPER('%CORPORATE%') THEN WTD ELSE 0 END), 2) AS corporate_processing_fees,\n    ROUND(SUM(CASE WHEN UPPER(SBU_DESCRIPTION) LIKE UPPER('%RETAIL%') THEN WTD ELSE 0 END), 2) AS retail_processing_fees\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 3\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_relationship_officer_top_mortgage_interest_prior",
+      "tags": ["mis_reporting", "mortgage", "interest_income", "relationship_manager", "prior_month"],
+      "text": "User: Which Relationship Officer generated the highest interest income from mortgage loans in the previous month?\nSQL:\nSELECT \n    ACCOUNT_OFFICER,\n    AO_NAME,\n    ROUND(SUM(CURRENT_MONTH), 2) AS interest_income\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 3\nAND CCY_TYPE = 'BCY'\nGROUP BY ACCOUNT_OFFICER, AO_NAME\nORDER BY interest_income DESC\nFETCH FIRST 1 ROW ONLY"
+    },
+    {
+      "id": "ex_mortgage_yoy_comparison_by_branch",
+      "tags": ["mis_reporting", "mortgage", "income", "branch_wise", "year_over_year"],
+      "text": "User: Provide a year-on-year comparison of total mortgage loan income of Branches.\nSQL:\nSELECT \n    VISION_OUC,\n    OUC_DESCRIPTION,\n    ROUND(SUM(YTD), 2) AS current_year_income,\n    ROUND(SUM(PREV_YEAR_YTD), 2) AS previous_year_income,\n    ROUND((SUM(YTD) - SUM(PREV_YEAR_YTD)) / NULLIF(SUM(PREV_YEAR_YTD), 0) * 100, 2) AS yoy_growth\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 3\nAND CCY_TYPE = 'BCY'\nGROUP BY VISION_OUC, OUC_DESCRIPTION"
+    },
+    {
+      "id": "ex_personal_loans_highest_volume_branch_today",
+      "tags": ["mis_reporting", "personal_loans", "volume", "branch_wise", "business_day"],
+      "text": "User: Which branch has highest volume of personal loan as of today?\nSQL:\nSELECT \n    VISION_OUC,\n    OUC_DESCRIPTION,\n    ROUND(SUM(BUSINESS_DAY), 2) AS personal_loan_volume\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'\nGROUP BY VISION_OUC, OUC_DESCRIPTION\nORDER BY personal_loan_volume DESC\nFETCH FIRST 1 ROW ONLY"
+    },
+    {
+      "id": "ex_personal_loans_largest_portfolio_branch_today",
+      "tags": ["mis_reporting", "personal_loans", "portfolio", "branch_wise", "business_day"],
+      "text": "User: Identify the branch with the largest personal loan portfolio outstanding as of today.\nSQL:\nSELECT \n    VISION_OUC,\n    OUC_DESCRIPTION,\n    ROUND(SUM(BUSINESS_DAY), 2) AS personal_loan_portfolio\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'\nGROUP BY VISION_OUC, OUC_DESCRIPTION\nORDER BY personal_loan_portfolio DESC\nFETCH FIRST 1 ROW ONLY"
+    },
+    {
+      "id": "ex_personal_loans_highest_balance_branch_today",
+      "tags": ["mis_reporting", "personal_loans", "aggregation", "branch_wise", "business_day"],
+      "text": "User: As of today, which branch holds the highest principal balance of personal loans?\nSQL:\nSELECT \n    VISION_OUC,\n    OUC_DESCRIPTION,\n    ROUND(SUM(BUSINESS_DAY), 2) AS personal_loan_balance\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'\nGROUP BY VISION_OUC, OUC_DESCRIPTION\nORDER BY personal_loan_balance DESC\nFETCH FIRST 1 ROW ONLY"
+    },
+    {
+      "id": "ex_funded_liability_current_month",
+      "tags": ["liabilities", "funded_liability", "aggregation", "current_month"],
+      "text": "User: What is the total funded liability outstanding for the current month?\nSQL:\nSELECT ROUND(SUM(MTD), 2) AS total_funded_liability\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 2\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_overdraft_outstanding_current_month",
+      "tags": ["liabilities", "overdraft", "aggregation", "current_month"],
+      "text": "User: How much overdraft is outstanding as of the month end?\nSQL:\nSELECT ROUND(SUM(CURRENT_MONTH), 2) AS overdraft_outstanding\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_treasury_cash_position_today",
+      "tags": ["treasury", "cash_position", "business_day", "aggregation"],
+      "text": "User: What is the bank's cash position in LCY and FCY as of today?\nSQL:\nSELECT \n    ROUND(SUM(CASE WHEN CCY_TYPE = 'BCY' THEN BUSINESS_DAY ELSE 0 END), 2) AS  cash_position_lcy,\n    ROUND(SUM(CASE WHEN CCY_TYPE = 'FCY' THEN BUSINESS_DAY ELSE 0 END), 2)  cash_position_fcy\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE IN ('BCY', 'FCY')"
+    },
+    {
+      "id": "ex_funded_liability_by_tenor",
+      "tags": ["liabilities", "funded_liability", "tenor_breakdown", "dimension_breakdown"],
+      "text": "User: Show funded liabilities split by tenor buckets for the current month.\nSQL:\nSELECT TENOR_BUCKET, ROUND(SUM(MTD), 2) AS funded_liability_amount\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 2\nAND CCY_TYPE = 'BCY'\nGROUP BY TENOR_BUCKET\nORDER BY funded_liability_amount DESC"
+    },
+    {
+      "id": "ex_overdraft_usage_mtd",
+      "tags": ["liabilities", "overdraft", "usage", "month_to_date"],
+      "text": "User: What is the month-to-date overdraft usage amount?\nSQL:\nSELECT \n    ROUND(SUM(MTD), 2) AS month_to_date_overdraft_usage\nFROM \n    DM_MIS_DETAILS_VW1\nWHERE \n    MRL_LINE IN (#MRL_LINES#)\n    AND BAL_TYPE = 1\n    AND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_fund_borrowings_ytd",
+      "tags": ["liabilities", "borrowings", "ytd", "aggregation"],
+      "text": "User: What is the year-to-date total of fund borrowings?\nSQL:\nSELECT ROUND(SUM(YTD), 2) AS fund_borrowings_ytd\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_funded_vs_unfunded_loans_split",
+      "tags": ["loans", "funded_unfunded", "split", "aggregation"],
+      "text": "User: Show split of funded vs unfunded loan amounts for the current month.\nSQL:\nSELECT \n    ROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_FUNDED_LOANS#) THEN MTD ELSE 0 END), 2) AS funded_loans,\n    ROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_UNFUNDED_LOANS#) THEN MTD ELSE 0 END), 2) AS unfunded_loans\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_overdraft_top_customers_month_to_date",
+      "tags": ["overdraft", "customers", "top_n", "MTD"],
+      "text": "User: Which customers have the highest overdraft amounts this month (top 5)?\nSQL:\nSELECT \n    CUSTOMER_ID,\n    CUSTOMER_NAME,\n    ROUND(SUM(MTD), 2) AS overdraft_amount\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'\nGROUP BY CUSTOMER_ID, CUSTOMER_NAME\nORDER BY overdraft_amount DESC\nFETCH FIRST 5 ROWS ONLY"
+    },
+    {
+      "id": "ex_treasury_interest_income_ytd",
+      "tags": ["treasury", "interest_income", "ytd", "aggregation"],
+      "text": "User: What is the year-to-date interest income recognized by the treasury desk?\nSQL:\nSELECT ROUND(SUM(YTD), 2) AS ytd_interest_income\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 3\nAND CCY_TYPE = 'BCY'\nAND UPPER(SBU_DESCRIPTION) LIKE UPPER('%TREASURY%')"
+    },
+    {
+      "id": "ex_funded_liability_trend_12months",
+      "tags": ["mis_reporting", "funded_liability", "trend_analysis", "12_month"],
+      "text": "User: Provide the trend of Funded Liability trend over the last 12 months.\nSQL:\nSELECT \n    ROUND(SUM(CURRENT_MONTH), 2) AS current_month_funded_liability,\n    ROUND(SUM(PRIOR_MONTH), 2) AS one_month_ago_funded_liability,\n    ROUND(SUM(PRIOR_2_MONTH), 2) AS two_months_ago_funded_liability,\n    ROUND(SUM(PRIOR_3_MONTH), 2) AS three_months_ago_funded_liability,\n    ROUND(SUM(PRIOR_4_MONTH), 2) AS four_months_ago_funded_liability,\n    ROUND(SUM(PRIOR_5_MONTH), 2) AS five_months_ago_funded_liability,\n    ROUND(SUM(PRIOR_6_MONTH), 2) AS six_months_ago_funded_liability,\n    ROUND(SUM(PRIOR_7_MONTH), 2) AS seven_months_ago_funded_liability,\n    ROUND(SUM(PRIOR_8_MONTH), 2) AS eight_months_ago_funded_liability,\n    ROUND(SUM(PRIOR_9_MONTH), 2) AS nine_months_ago_funded_liability,\n    ROUND(SUM(PRIOR_10_MONTH), 2) AS ten_months_ago_funded_liability,\n    ROUND(SUM(PRIOR_11_MONTH), 2) AS eleven_months_ago_funded_liability\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#GROUP_FUNDED_LIABILITY#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_deposit_lcy_fcy_split_prior_year",
+      "tags": ["mis_reporting", "deposit", "currency_breakdown", "lcy_fcy", "prior_year", "trend"],
+      "text": "User: Provide the trend of Deposit split between LCY and FCY last year.\nSQL:\nSELECT \n    CCY_TYPE,\n    ROUND(SUM(PREV_YEAR_YTD), 2) AS deposit_balance_last_year\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#GROUP_DEPOSIT#)\nAND BAL_TYPE = 1\nAND CCY_TYPE IN ('BCY', 'FCY')\nGROUP BY CCY_TYPE\nORDER BY CCY_TYPE"
+    },
+    {
+      "id": "ex_other_income_portfolio_ytd_trend",
+      "tags": ["mis_reporting", "other_income", "portfolio", "year_to_date", "trend_analysis"],
+      "text": "User: Provide the trend of Other Income portfolio performance YTD.\nSQL:\nSELECT \n    ROUND(SUM(YTD), 2) AS other_income_ytd\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#GROUP_OTHER_INCOME#)\nAND BAL_TYPE = 3\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_ao_fees_contribution_prior_month",
+      "tags": ["mis_reporting", "fees", "account_officer", "prior_month"],
+      "text": "User: How much of the bank's portfolio performance is driven by account officers in Fees last month?\nSQL:\nSELECT \n    ACCOUNT_OFFICER,\n    AO_NAME,\n    ROUND(SUM(CURRENT_MONTH), 2) AS fee_contribution\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 3\nAND CCY_TYPE = 'BCY'\nGROUP BY ACCOUNT_OFFICER, AO_NAME\nORDER BY fee_contribution DESC"
+    },
+    {
+      "id": "ex_mortgage_loan_revenue_by_sbu_prior_year",
+      "tags": ["mis_reporting", "mortgage", "revenue", "segment_wise", "year_over_year"],
+      "text": "User: Compare Mortgage Loan total revenue between different SBUs last year.\nSQL:\nSELECT \n    VISION_SBU,\n    SBU_DESCRIPTION,\n    ROUND(SUM(PREV_YEAR_YTD), 2) AS mortgage_loan_revenue\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 3\nAND CCY_TYPE = 'BCY'\nGROUP BY VISION_SBU, SBU_DESCRIPTION\nORDER BY mortgage_loan_revenue DESC"
+    },
+    {
+      "id": "ex_retail_other_income_top_customer_ytd",
+      "tags": ["mis_reporting", "retail", "other_income", "customer_wise", "year_to_date"],
+      "text": "User: Which Retail customers contributed the highest Other Income exposure this year?\nSQL:\nSELECT \n    CUSTOMER_NAME,\n    ROUND(SUM(YTD), 2) AS other_income_exposure\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 3\nAND CCY_TYPE = 'BCY'\nAND UPPER(SBU_DESCRIPTION) LIKE UPPER('%RETAIL%')\nGROUP BY CUSTOMER_NAME\nORDER BY other_income_exposure DESC\nFETCH FIRST 1 ROW ONLY"
+    },
+    {
+      "id": "ex_funded_liability_yoy_comparison_today",
+      "tags": ["mis_reporting", "funded_liability", "year_over_year", "business_day", "yoy_comparison"],
+      "text": "User: How does the Funded Liability exposure compare with last year as of today?\nSQL:\nSELECT \n    ROUND(SUM(BUSINESS_DAY), 2) AS current_year_funded_liability,\n    ROUND(SUM(PY_SP_YTD), 2) AS previous_year_funded_liability,\n    ROUND((SUM(BUSINESS_DAY) - SUM(PY_SP_YTD)) / NULLIF(SUM(PY_SP_YTD), 0) * 100, 2) AS yoy_growth\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_retail_term_loan_revenue_top_customer_ytd",
+      "tags": ["mis_reporting", "retail", "term_loan", "revenue", "customer_wise", "year_to_date"],
+      "text": "User: Which Retail customers contributed the highest Term Loan revenue growth YTD?\nSQL:\nSELECT \n    CUSTOMER_NAME,\n    ROUND(SUM(YTD), 2) AS term_loan_revenue\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 3\nAND CCY_TYPE = 'BCY'\nAND UPPER(SBU_DESCRIPTION) LIKE UPPER('%RETAIL%')\nGROUP BY CUSTOMER_NAME\nORDER BY term_loan_revenue DESC\nFETCH FIRST 1 ROW ONLY"
+    },
+    {
+      "id": "ex_deposit_balance_by_sbu_ytd",
+      "tags": ["mis_reporting", "deposit", "balance", "segment_wise", "year_to_date"],
+      "text": "User: Compare Deposit balance between different SBUs YTD.\nSQL:\nSELECT \n    VISION_SBU,\n    SBU_DESCRIPTION,\n    ROUND(SUM(YTD), 2) AS deposit_balance\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'\nGROUP BY VISION_SBU, SBU_DESCRIPTION\nORDER BY deposit_balance DESC"
+    },
+    {
+      "id": "ex_product_mtd_mom_change_current_vs_prior",
+      "tags": ["mis_reporting", "product_wise", "month_to_date", "mom_comparison", "change_analysis"],
+      "text": "User: Show month-over-month change in MTD for each PRODUCT this CURRENT_MONTH vs PRIOR_MONTH, sorted by largest decline.\nSQL:\nSELECT \n    MRL_LINE,\n    ROUND(SUM(CURRENT_MONTH) - SUM(PRIOR_MONTH), 2) AS mtd_change\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'\nGROUP BY MRL_LINE\nORDER BY mtd_change ASC"
+    },
+    {
+      "id": "ex_sbu_ytd_target_variance_flagging",
+      "tags": ["mis_reporting", "sbu_analysis", "target_variance", "term_loans", "flag_alert"],
+      "text": "User: For each VISION_SBU, compare YTD to YTD_TARGET this year and flag SBUs where variance < −5% for the Term Loans.\nSQL:\nSELECT \n    VISION_SBU,\n    SBU_DESCRIPTION,\n    ROUND(SUM(YTD), 2) AS ytd_actual,\n    ROUND(SUM(YTD_TARGET), 2) AS ytd_target,\n    ROUND((SUM(YTD) - SUM(YTD_TARGET)) / NULLIF(SUM(YTD_TARGET), 0) * 100, 2) AS variance_percentage,\n    CASE \n        WHEN (SUM(YTD) - SUM(YTD_TARGET)) / NULLIF(SUM(YTD_TARGET), 0) * 100 < -5 THEN 'Flagged'\n        ELSE 'Normal'\n    END AS status\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'\nGROUP BY VISION_SBU, SBU_DESCRIPTION\nHAVING (SUM(YTD) - SUM(YTD_TARGET)) / NULLIF(SUM(YTD_TARGET), 0) * 100 < -5"
+    },
+    {
+      "id": "ex_contract_highest_wtd_increase",
+      "tags": ["mis_reporting", "contract_wise", "loans", "weekly_performance", "top_performers"],
+      "text": "User: What are the top 10 CONTRACT_IDs of Loans with the highest WTD increase vs PREVIOUS_DAY?\nSQL:\nSELECT \n    CONTRACT_ID,\n    ROUND(SUM(WTD) - SUM(PREVIOUS_DAY), 2) AS wtd_increase\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'\nGROUP BY CONTRACT_ID\nORDER BY wtd_increase DESC\nFETCH FIRST 10 ROWS ONLY"
+    },
+    {
+      "id": "ex_ouc_deposit_decline_detection",
+      "tags": ["mis_reporting", "ouc_branch", "deposit", "decline_detection"],
+      "text": "User: List OUC_LEVEL_3 where CURRENT_MONTH < PRIOR_3_MONTH by more than 10% in Deposit.\nSQL:\nSELECT \n    VISION_OUC,\n    OUC_DESCRIPTION,\n    ROUND(SUM(CURRENT_MONTH), 2) AS current_month_deposit,\n    ROUND(SUM(PRIOR_3_MONTH), 2) AS three_months_ago_deposit,\n    ROUND((SUM(CURRENT_MONTH) - SUM(PRIOR_3_MONTH)) / NULLIF(SUM(PRIOR_3_MONTH), 0) * 100, 2) AS variance_percentage\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'\nGROUP BY VISION_OUC, OUC_DESCRIPTION\nHAVING (SUM(CURRENT_MONTH) - SUM(PRIOR_3_MONTH)) / NULLIF(SUM(PRIOR_3_MONTH), 0) * 100 < -10"
+    },
+    {
+      "id": "ex_ao_missed_mtd_target_mortgage",
+      "tags": ["mis_reporting", "account_officer", "mortgage_loans", "target_achievement", "performance_flag"],
+      "text": "User: Which ACCOUNT_OFFICERs missed MTD_TARGET for the Mortgage Loans?\nSQL:\nSELECT \n    ACCOUNT_OFFICER,\n    AO_NAME,\n    ROUND(SUM(MTD), 2) AS actual_mtd,\n    ROUND(SUM(MTD_TARGET), 2) AS target_mtd,\n    CASE \n        WHEN SUM(MTD) < SUM(MTD_TARGET) THEN 'Missed Target'\n        ELSE 'Met Target'\n    END AS status\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'\nGROUP BY ACCOUNT_OFFICER, AO_NAME\nHAVING SUM(MTD) < SUM(MTD_TARGET)"
+    },
+    {
+      "id": "ex_net_interest_margin_this_month",
+      "tags": ["mis_reporting","net_interest_margin", "this_month"],
+      "text": "User: what is the total net interest margin for this month?\nSQL:\nSELECT ROUND(SUM(MTD), 2) AS total_net_interest_margin\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE IN (3, 4)\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_net_interest_this_month",
+      "tags": ["mis_reporting","net_interest_margin", "this_month"],
+      "text": "User: what is the total net interest for this month?\nSQL:\nSELECT ROUND(SUM(MTD), 2) AS total_net_interest_margin\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE IN (3, 4)\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_total_deposit_income_current_month",
+      "tags": ["mis_reporting", "deposits", "income", "aggregation", "current_month", "multi_product"],
+      "text": "User: Give me total deposit and total income for this month.\nSQL:\nSELECT \n    ROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_DEPOSIT#) AND BAL_TYPE = 1 THEN MTD ELSE 0 END), 2) AS total_deposits,\n    ROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_INCOME#) AND BAL_TYPE = 3 THEN MTD ELSE 0 END), 2) AS total_income\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE IN (1, 3)\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_total_loan_balance_excluding_term_loan",
+      "tags": ["mis_reporting", "loans", "aggregation", "exclusion", "business_day"],
+      "text": "User: give me total balance in loan except term loan\nSQL:\nSELECT\n    ROUND(SUM(BUSINESS_DAY), 2) AS total_loan_balance\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'"
+    },
+    {
+      "id": "ex_region_wise_nfi",
+      "tags": ["mis_reporting", "nfi", "dimension_breakdown", "region_wise"],
+      "text": "User: Give me region wise NFI\nSQL:\nSELECT \n    OUC_LEVEL_03_DESCRIPTION AS region_description,\n    ROUND(SUM(BUSINESS_DAY), 2) AS nfi\nFROM \n    DM_MIS_DETAILS_VW1\nWHERE \n    MRL_LINE IN (#MRL_LINES#)\n    AND BAL_TYPE = 3\n    AND CCY_TYPE = 'BCY'\nGROUP BY \n    OUC_LEVEL_03_DESCRIPTION;"
+    },
+    {
+      "id": "ex_deposits_loans_interest_prior_month",
+      "tags": ["mis_reporting", "deposits", "loans", "interest_income", "interest_expense", "aggregation", "multi_measure", "prior_month"],
+      "text": "User: Give me total deposit , total loans, interest income and interest expenses for last month\nSQL:\nSELECT \n    ROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_DEPOSITS#) AND BAL_TYPE = 1 THEN CURRENT_MONTH ELSE 0 END), 2) AS total_deposit,\n    ROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_LOANS#) AND BAL_TYPE = 1 THEN CURRENT_MONTH ELSE 0 END), 2) AS total_loans,\n    ROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_INTEREST_INCOME#) AND BAL_TYPE = 3 THEN CURRENT_MONTH ELSE 0 END), 2) AS interest_income,\n    ROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_INTEREST_EXPENSE#) AND BAL_TYPE = 3 THEN CURRENT_MONTH ELSE 0 END), 2) AS interest_expense\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE IN (1, 3)\nAND CCY_TYPE = 'BCY';"
+    },
+    {
+      "id": "ex_total_loan_net_interest_expense",
+      "tags": ["mis_reporting", "loans", "interest_expense", "aggregation", "multi_measure", "business_day"],
+      "text": "User: Give total loan and net interest expense\nSQL:\nSELECT \n    ROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_LOANS#) AND BAL_TYPE = 1 THEN BUSINESS_DAY ELSE 0 END), 2) AS total_loan,\n    ROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_INTEREST_EXPENSE#) AND BAL_TYPE = 3 THEN BUSINESS_DAY ELSE 0 END), 2) AS net_interest_expense\nFROM DM_MIS_DETAILS_VW1\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE IN (1, 3)\nAND CCY_TYPE = 'BCY';"
+    },
+    {
+      "id": "ex_revenue_trend_6months_by_rm_country",
+      "tags": ["mis_reporting", "revenue", "trend_analysis", "six_month", "relationship_manager", "country_wise", "top_performers"],
+      "text": "User: What is the overall Total Revenue balance over the last 6 months for Kenya with the top Relationship Managers?\nSQL:\nSELECT \n    ACCOUNT_OFFICER AS rm_code,\n    AO_NAME AS rm_name,\n    ROUND(SUM(PRIOR_5_MONTH), 2) AS five_months_ago_revenue,\n    ROUND(SUM(PRIOR_4_MONTH), 2) AS four_months_ago_revenue,\n    ROUND(SUM(PRIOR_3_MONTH), 2) AS three_months_ago_revenue,\n    ROUND(SUM(PRIOR_2_MONTH), 2) AS two_months_ago_revenue,\n    ROUND(SUM(PRIOR_MONTH), 2) AS one_month_ago_revenue,\n    ROUND(SUM(CURRENT_MONTH), 2) AS current_month_revenue\nFROM DM_MIS_DETAILS\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 3\nAND CCY_TYPE = 'BCY'\nAND UPPER(LEB_DESCRIPTION) LIKE UPPER('%Kenya%')\nGROUP BY ACCOUNT_OFFICER, AO_NAME\nORDER BY current_month_revenue DESC;"
+    },
+    {
+      "id": "ex_term_loans_lcy_fcy_split_prior_month",
+      "tags": ["mis_reporting", "term_loans", "currency_breakdown", "lcy_fcy", "prior_month"],
+      "text": "User: What is the split of term loans between local currency (LCY) and foreign currency (FCY) in the current month\nSQL:\nSELECT \n    ROUND(SUM(CASE WHEN CCY_TYPE = 'BCY' THEN MTD ELSE 0 END), 2) AS term_loans_lcy,\n    ROUND(SUM(CASE WHEN CCY_TYPE = 'FCY' THEN MTD ELSE 0 END), 2) AS term_loans_fcy\nFROM DM_MIS_DETAILS\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE IN ('BCY', 'FCY');"
+    },
+    {
+      "id": "ex_loans_current_vs_last_month",
+      "tags": ["mis_reporting", "loans", "comparison", "mom_comparison", "aggregation"],
+      "text": "User: Show total loans for current month and last month\nSQL:\nSELECT \n    ROUND(SUM(MTD), 2) AS current_month_loans,\n    ROUND(SUM(CURRENT_MONTH), 2) AS last_month_loans\nFROM DM_MIS_DETAILS\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY';"
+    },
+    {
+      "id": "ex_deposit_interest_income_current_vs_last_month",
+      "tags": ["mis_reporting", "deposit", "interest_income", "comparison", "mom_comparison", "aggregation"],
+      "text": "User: give me total deposit and interest income for this month and last month\nSQL:\n\tSELECT\t\n\tROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_DEPOSITS#) AND BAL_TYPE = 1 THEN MTD ELSE 0 END), 2) AS total_deposit_current_month,\t\n\tROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_DEPOSITS#) AND BAL_TYPE = 1 THEN CURRENT_MONTH ELSE 0 END), 2) AS total_deposit_last_month,\t\n\tROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_INTEREST_INCOME#) AND BAL_TYPE = 3 THEN MTD ELSE 0 END), 2) AS interest_income_current_month,\t\n\tROUND(SUM(CASE WHEN MRL_LINE IN (#GROUP_INTEREST_INCOME#) AND BAL_TYPE = 3 THEN CURRENT_MONTH ELSE 0 END), 2) AS interest_income_last_month\t\n\tFROM DM_MIS_DETAILS_VW1\t\n\tWHERE MRL_LINE IN (#MRL_LINES#) AND\n\tBAL_TYPE IN (1, 3) AND\n\tCCY_TYPE = 'BCY'"
+    },
+    {
+    "id": "ex_short_term_loans_female_customers",
+    "tags": ["mis_reporting", "short_term_loans", "female_customers", "aggregation", "outstanding_balance"],
+    "text": "User: Give me the names and outstanding balance of Short Term Loans of the Female Customers\nSQL:\nSELECT \n CUSTOMER_ID,\n CUSTOMER_NAME,\n ROUND(SUM(BUSINESS_DAY), 2) AS outstanding_balance\nFROM DM_MIS_DETAILS\nWHERE MRL_LINE IN (#MRL_LINES#)\nAND BAL_TYPE = 1\nAND CCY_TYPE = 'BCY'\nAND UPPER(CUSTOMER_SEX) LIKE UPPER('%F%')\nGROUP BY CUSTOMER_ID,CUSTOMER_NAME"
+    }
+  ]
+}

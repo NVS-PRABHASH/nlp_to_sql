@@ -1,0 +1,90 @@
+server:
+  host: 0.0.0.0
+  port: 5005  
+  request_timeout: 300          
+  reload: false
+  workers: 1  # MUST be 1 when using local Qdrant storage (conversation memory)
+  # ssl_certfile: /home/user1/server.crt
+  # ssl_keyfile:  /home/user1/server.key
+  cors:
+    allow_origins: ["*"]
+    allow_credentials: true
+    allow_methods: ["*"]
+    allow_headers: ["*"]
+
+vllm:
+  api_url: "http://10.16.1.102:8000/v1/chat/completions"
+  model_name: "Qwen/Qwen2.5-14B-Instruct"
+
+# Qdrant Vector Database Configuration
+qdrant:
+  storage_path: "./qdrant_data"  # Local disk storage
+  collection_name: "conversation_history"
+  vector_size: 384  # For sentence-transformers/all-MiniLM-L6-v2
+  distance: "Cosine"
+  embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
+
+# Conversation Memory Configuration
+conversation:
+  enable_memory: true  # Feature flag to enable/disable conversation memory
+  max_thread_history: 10  # Number of last queries to check for thread relevance
+  thread_title_max_length: 50  # Maximum characters for thread title
+  default_tenant_id: 1  # Default tenant ID for multi-tenancy support
+  relevance_temperature: 0.0  # LLM temperature for relevance checking (low for consistency)
+  title_generation_temperature: 0.3  # LLM temperature for title generation
+
+database:
+  dialect: oracle+oracledb
+  host: 10.16.1.106
+  port: 1521
+  service: VISDB
+  user: VISION_CLOUD
+  password: visioncould123
+  pool:
+    pool_size: 5
+    max_overflow: 10
+    pool_timeout: 30
+    pool_recycle: 3600
+
+logging:
+  version: 1
+  disable_existing_loggers: false
+  formatters:
+    standard:
+      format: "%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+  handlers:
+    console:
+      class: logging.StreamHandler
+      level: INFO
+      formatter: standard
+      stream: ext://sys.stdout
+    file:
+      class: logging.handlers.TimedRotatingFileHandler
+      level: INFO
+      formatter: standard
+      filename: logs/ai_insight.log
+      when: 'midnight'
+      interval: 1
+      backupCount: 30  # Keep 30 days of logs
+      encoding: utf-8
+      utc: true
+  loggers:
+    ai_insight:
+      level: INFO
+      handlers: [console, file]
+      propagate: false
+    uvicorn:
+      level: INFO
+      handlers: [console, file]
+      propagate: false
+  root:
+    level: INFO
+    handlers: [console]
+
+# features:
+#   excel_query_log:
+#     enabled: true
+#     directory: logs
+#     file_basename: mrl_query_log
+#     max_rows_per_file: 500
+#     max_result_char_length: 8000
